@@ -17,23 +17,14 @@
 
 /** @enum {string} */
 const strings = {
-  INPUT_SELECTOR: '.mdc-textfield__input',
-  LABEL_SELECTOR: '.mdc-textfield__label',
-  ICON_SELECTOR: '.mdc-textfield__icon',
-  ICON_EVENT: 'MDCTextfield:icon',
-  BOTTOM_LINE_SELECTOR: '.mdc-textfield__bottom-line',
+  ARIA_HIDDEN: 'aria-hidden',
+  ROLE: 'role',
 };
 
 /** @enum {string} */
 const cssClasses = {
-  ROOT: 'mdc-textfield',
-  UPGRADED: 'mdc-textfield--upgraded',
-  DISABLED: 'mdc-textfield--disabled',
-  FOCUSED: 'mdc-textfield--focused',
-  INVALID: 'mdc-textfield--invalid',
-  BOX: 'mdc-textfield--box',
-  TEXT_FIELD_ICON: 'mdc-textfield__icon',
-  TEXTAREA: 'mdc-textfield--textarea',
+  HELPTEXT_PERSISTENT: 'mdc-textfield-helptext--persistent',
+  HELPTEXT_VALIDATION_MSG: 'mdc-textfield-helptext--validation-msg',
 };
 
-export {cssClasses, strings};
+export {strings, cssClasses};

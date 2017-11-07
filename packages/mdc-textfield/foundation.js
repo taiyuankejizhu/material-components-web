@@ -21,6 +21,7 @@ import {cssClasses, strings} from './constants';
 import MDCTextfieldInputFoundation from './input/foundation';
 import MDCTextfieldLabelFoundation from './label/foundation';
 import MDCTextfieldBottomLineFoundation from './bottom-line/foundation';
+import MDCTextfieldHelpTextFoundation from './help-text/foundation';
 
 
 /**
@@ -52,14 +53,10 @@ class MDCTextfieldFoundation extends MDCFoundation {
       registerTextFieldInteractionHandler: () => {},
       deregisterTextFieldInteractionHandler: () => {},
       notifyIconAction: () => {},
-      addClassToHelptext: () => {},
-      removeClassFromHelptext: () => {},
-      helptextHasClass: () => false,
-      setHelptextAttr: () => {},
-      removeHelptextAttr: () => {},
       getInputFoundation: () => {},
       getLabelFoundation: () => {},
       getBottomLineFoundation: () => {},
+      getHelpTextFoundation: () => {},
     });
   }
 
@@ -150,16 +147,10 @@ class MDCTextfieldFoundation extends MDCFoundation {
       bottomLine.activateFocus();
     }
     this.adapter_.getLabelFoundation().floatLabel();
-    this.showHelptext_();
-  }
-
-  /**
-   * Makes the help text visible to screen readers.
-   * @private
-   */
-  showHelptext_() {
-    const {ARIA_HIDDEN} = MDCTextfieldFoundation.strings;
-    this.adapter_.removeHelptextAttr(ARIA_HIDDEN);
+    const helpText = this.adapter_.getHelpTextFoundation();
+    if (helpText){
+      helpText.showHelptext();
+    }
   }
 
   /**
@@ -193,40 +184,10 @@ class MDCTextfieldFoundation extends MDCFoundation {
     } else {
       this.adapter_.addClass(INVALID);
     }
-    this.updateHelptext_(isValid);
-  }
-
-  /**
-   * Updates the state of the Textfield's help text based on validity and
-   * the Textfield's options.
-   * @param {boolean} isValid
-   */
-  updateHelptext_(isValid) {
-    const {HELPTEXT_PERSISTENT, HELPTEXT_VALIDATION_MSG} = MDCTextfieldFoundation.cssClasses;
-    const {ROLE} = MDCTextfieldFoundation.strings;
-    const helptextIsPersistent = this.adapter_.helptextHasClass(HELPTEXT_PERSISTENT);
-    const helptextIsValidationMsg = this.adapter_.helptextHasClass(HELPTEXT_VALIDATION_MSG);
-    const validationMsgNeedsDisplay = helptextIsValidationMsg && !isValid;
-
-    if (validationMsgNeedsDisplay) {
-      this.adapter_.setHelptextAttr(ROLE, 'alert');
-    } else {
-      this.adapter_.removeHelptextAttr(ROLE);
+    const helpText = this.adapter_.getHelpTextFoundation();
+    if (helpText){
+      helpText.updateHelptext(isValid);
     }
-
-    if (helptextIsPersistent || validationMsgNeedsDisplay) {
-      return;
-    }
-    this.hideHelptext_();
-  }
-
-  /**
-   * Hides the help text from screen readers.
-   * @private
-   */
-  hideHelptext_() {
-    const {ARIA_HIDDEN} = MDCTextfieldFoundation.strings;
-    this.adapter_.setHelptextAttr(ARIA_HIDDEN, 'true');
   }
 
   /**

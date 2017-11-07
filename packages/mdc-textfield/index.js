@@ -24,6 +24,7 @@ import MDCTextfieldFoundation from './foundation';
 import {MDCTextfieldInput} from './input';
 import {MDCTextfieldLabel} from './label';
 import {MDCTextfieldBottomLine} from './bottom-line';
+import {MDCTextfieldHelpText} from './help-text';
 
 /**
  * @extends {MDCComponent<!MDCTextfieldFoundation>}
@@ -39,8 +40,8 @@ class MDCTextfield extends MDCComponent {
     this.input_;
     /** @private {?MDCTextfieldLabel} */
     this.label_;
-    /** @type {?Element} */
-    this.helptextElement;
+    /** @type {?MDCTextfieldHelpText} */
+    this.helpText_;
     /** @type {?MDCRipple} */
     this.ripple;
     /** @private {?MDCTextfieldBottomLine} */
@@ -66,11 +67,13 @@ class MDCTextfield extends MDCComponent {
     this.input_ = new MDCTextfieldInput(inputElement);
     const labelElement = this.root_.querySelector(strings.LABEL_SELECTOR)
     this.label_ = new MDCTextfieldLabel(labelElement);
-    this.helptextElement = null;
-    this.ripple = null;
     if (inputElement.hasAttribute('aria-controls')) {
-      this.helptextElement = document.getElementById(inputElement.getAttribute('aria-controls'));
+      const helpTextElement = document.getElementById(inputElement.getAttribute('aria-controls'));
+      if (helpTextElement) {
+        this.helpText_ = new MDCTextfieldHelpText(helpTextElement);
+      }
     }
+    this.ripple = null;
     if (this.root_.classList.contains(cssClasses.BOX)) {
       this.ripple = rippleFactory(this.root_);
     };
@@ -92,6 +95,9 @@ class MDCTextfield extends MDCComponent {
     }
     if (this.bottomLine_) {
       this.bottomLine_.destroy();
+    }
+    if (this.helpText_) {
+      this.helpText_.destroy();
     }
     if (this.ripple) {
       this.ripple.destroy();
@@ -141,8 +147,13 @@ class MDCTextfield extends MDCComponent {
         }
         return null;
       },
+      getHelpTextFoundation: () => {
+        if (this.helpText_) {
+          return this.helpText_.foundation;
+        }
+        return null;
+      },
     },
-    this.getHelptextAdapterMethods_(),
     this.getIconAdapterMethods_())));
   }
 
@@ -156,46 +167,6 @@ class MDCTextfield extends MDCComponent {
       setIconAttr: (name, value) => {
         if (this.icon_) {
           this.icon_.setAttribute(name, value);
-        }
-      },
-    };
-  }
-
-  /**
-   * @return {!{
-   *   addClassToHelptext: function(string): undefined,
-   *   removeClassFromHelptext: function(string): undefined,
-   *   helptextHasClass: function(string): boolean,
-   *   setHelptextAttr: function(string, string): undefined,
-   *   removeHelptextAttr: function(string): undefined,
-   * }}
-   */
-  getHelptextAdapterMethods_() {
-    return {
-      addClassToHelptext: (className) => {
-        if (this.helptextElement) {
-          this.helptextElement.classList.add(className);
-        }
-      },
-      removeClassFromHelptext: (className) => {
-        if (this.helptextElement) {
-          this.helptextElement.classList.remove(className);
-        }
-      },
-      helptextHasClass: (className) => {
-        if (!this.helptextElement) {
-          return false;
-        }
-        return this.helptextElement.classList.contains(className);
-      },
-      setHelptextAttr: (name, value) => {
-        if (this.helptextElement) {
-          this.helptextElement.setAttribute(name, value);
-        }
-      },
-      removeHelptextAttr: (name) => {
-        if (this.helptextElement) {
-          this.helptextElement.removeAttribute(name);
         }
       },
     };

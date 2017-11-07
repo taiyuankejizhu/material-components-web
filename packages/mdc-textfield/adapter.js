@@ -18,6 +18,7 @@
 import MDCTextfieldInputFoundation from './input/foundation';
 import MDCTextfieldLabelFoundation from './label/foundation';
 import MDCTextfieldBottomLineFoundation from './bottom-line/foundation';
+import MDCTextfieldHelpTextFoundation from './help-text/foundation';
 
 /**
  * Adapter for MDC Textfield.
@@ -77,27 +78,6 @@ class MDCTextfieldAdapter {
   notifyIconAction() {}
 
   /**
-   * Adds a class to the help text element. Note that in our code we check for
-   * whether or not we have a help text element and if we don't, we simply
-   * return.
-   * @param {string} className
-   */
-  addClassToHelptext(className) {}
-
-  /**
-   * Removes a class from the help text element.
-   * @param {string} className
-   */
-  removeClassFromHelptext(className) {}
-
-  /**
-   * Returns whether or not the help text element contains the given class.
-   * @param {string} className
-   * @return {boolean}
-   */
-  helptextHasClass(className) {}
-
-  /**
    * Registers an event listener on the native input element for a given event.
    * @param {string} evtType
    * @param {function(!Event): undefined} handler
@@ -110,19 +90,6 @@ class MDCTextfieldAdapter {
    * @param {function(!Event): undefined} handler
    */
   deregisterInputInteractionHandler(evtType, handler) {}
-
-  /**
-   * Sets an attribute with a given value on the help text element.
-   * @param {string} name
-   * @param {string} value
-   */
-  setHelptextAttr(name, value) {}
-
-  /**
-   * Removes an attribute from the help text element.
-   * @param {string} name
-   */
-  removeHelptextAttr(name) {}
 
   /** 
    * @return {MDCTextfieldInputFoundation}
@@ -138,6 +105,11 @@ class MDCTextfieldAdapter {
    * @return {?MDCTextfieldBottomLineFoundation}
    */
   getBottomLineFoundation() {}
+
+  /** 
+   * @return {?MDCTextfieldHelpTextFoundation}
+   */
+  getHelpTextFoundation() {}
 }
 
 export default MDCTextfieldAdapter;
