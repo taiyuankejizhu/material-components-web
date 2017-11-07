@@ -63,8 +63,20 @@
   @include mdc-text-field-invalid_();
 }
 
+.mdc-textfield--invalid.mdc-textfield--textarea {
+  @include mdc-text-field-invalid-textarea_();
+}
+
 .mdc-textfield--focused {
   @include mdc-text-field-focused_();
+}
+
+.mdc-textfield--focused.mdc-textfield--textarea {
+  @include mdc-text-field-focused-textarea_();
+}
+
+.mdc-textfield--disabled.mdc-textfield--textarea {
+  @include mdc-text-field-disabled-textarea_();
 }
 
 .mdc-textfield--disabled {
