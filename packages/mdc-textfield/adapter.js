@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-import MDCTextfieldInputFoundation from './input/foundation';
-import MDCTextfieldLabelFoundation from './label/foundation';
+import MDCTextareaAdapter from './textarea/adapter';
 import MDCTextfieldBottomLineFoundation from './bottom-line/foundation';
 import MDCTextfieldHelpTextFoundation from './help-text/foundation';
 
@@ -30,77 +29,7 @@ import MDCTextfieldHelpTextFoundation from './help-text/foundation';
  *
  * @record
  */
-class MDCTextfieldAdapter {
-  /**
-   * Adds a class to the root Element.
-   * @param {string} className
-   */
-  addClass(className) {}
-
-  /**
-   * Removes a class from the root Element.
-   * @param {string} className
-   */
-  removeClass(className) {}
-
-  /**
-   * Sets an attribute on the icon Element.
-   * @param {string} name
-   * @param {string} value
-   */
-  setIconAttr(name, value) {}
-
-  /**
-   * Returns true if classname exists for a given target element.
-   * @param {?EventTarget} target
-   * @param {string} className
-   * @return {boolean}
-   */
-  eventTargetHasClass(target, className) {}
-
-  /**
-   * Registers an event handler on the root element for a given event.
-   * @param {string} type
-   * @param {function(!Event): undefined} handler
-   */
-  registerTextFieldInteractionHandler(type, handler) {}
-
-  /**
-   * Deregisters an event handler on the root element for a given event.
-   * @param {string} type
-   * @param {function(!Event): undefined} handler
-   */
-  deregisterTextFieldInteractionHandler(type, handler) {}
-
-  /**
-   * Emits a custom event "MDCTextfield:icon" denoting a user has clicked the icon.
-   */
-  notifyIconAction() {}
-
-  /**
-   * Registers an event listener on the native input element for a given event.
-   * @param {string} evtType
-   * @param {function(!Event): undefined} handler
-   */
-  registerInputInteractionHandler(evtType, handler) {}
-
-  /**
-   * Deregisters an event listener on the native input element for a given event.
-   * @param {string} evtType
-   * @param {function(!Event): undefined} handler
-   */
-  deregisterInputInteractionHandler(evtType, handler) {}
-
-  /** 
-   * @return {MDCTextfieldInputFoundation}
-   */
-  getInputFoundation() {}
-
-  /** 
-   * @return {MDCTextfieldLabelFoundation}
-   */
-  getLabelFoundation() {}
-
+class MDCTextfieldAdapter extends MDCTextareaAdapter {
   /** 
    * @return {?MDCTextfieldBottomLineFoundation}
    */

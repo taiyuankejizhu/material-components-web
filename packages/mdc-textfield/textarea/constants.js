@@ -17,7 +17,22 @@
 
 /** @enum {string} */
 const strings = {
-  BOTTOM_LINE_SELECTOR: '.mdc-textfield__bottom-line',
+  INPUT_SELECTOR: '.mdc-textfield__input',
+  LABEL_SELECTOR: '.mdc-textfield__label',
+  ICON_SELECTOR: '.mdc-textfield__icon',
+  ICON_EVENT: 'MDCTextfield:icon',
 };
 
-export {strings};
+/** @enum {string} */
+const cssClasses = {
+  ROOT: 'mdc-textfield',
+  UPGRADED: 'mdc-textfield--upgraded',
+  DISABLED: 'mdc-textfield--disabled',
+  FOCUSED: 'mdc-textfield--focused',
+  INVALID: 'mdc-textfield--invalid',
+  BOX: 'mdc-textfield--box',
+  TEXT_FIELD_ICON: 'mdc-textfield__icon',
+  TEXTAREA: 'mdc-textfield--textarea',
+};
+
+export {cssClasses, strings};

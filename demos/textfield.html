@@ -477,7 +477,7 @@
       (function() {
         var section = document.getElementById('demo-textfield-textarea-wrapper');
         var tfRoot = section.querySelector('.mdc-textfield');
-        var tf = new mdc.textfield.MDCTextfield(tfRoot);
+        var tf = new mdc.textfield.MDCTextarea(tfRoot);
         document.getElementById('textarea-disable').addEventListener('change', function(evt) {
           var target = evt.target;
           tf.disabled = target.checked;
