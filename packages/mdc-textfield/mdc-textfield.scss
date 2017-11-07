@@ -154,13 +154,6 @@
   }
 }
 
-// stylelint-disable plugin/selector-bem-pattern
-.mdc-textfield--invalid.mdc-textfield--textarea {
-  border-color: $mdc-textfield-error-on-light;
-}
-
-// stylelint-enable plugin/selector-bem-pattern
-
 .mdc-textfield--dense {
   margin-top: 12px;
   margin-bottom: 4px;
@@ -193,39 +186,6 @@
     // stylelint-enable plugin/selector-bem-pattern
   }
 }
-
-.mdc-textfield--textarea {
-  @include mdc-text-field-textarea-corner-radius($mdc-text-field-border-radius);
-
-
-  display: flex;
-  height: initial;
-  transition: none;
-  border: 1px solid $mdc-textarea-border-on-light;
-  overflow: hidden;
-
-  @include mdc-theme-dark(".mdc-textfield") {
-    border-color: $mdc-textarea-border-on-dark;
-  }
-
-  // stylelint-disable plugin/selector-bem-pattern
-  &.mdc-textfield--disabled {
-    border-style: solid;
-    border-color: $mdc-textfield-disabled-border-on-light;
-    background-color: $mdc-textarea-disabled-background-on-light;
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      border-color: $mdc-textfield-disabled-border-on-dark;
-      background-color: $mdc-textarea-disabled-background-on-dark;
-    }
-  }
-}
-
-.mdc-textfield--textarea.mdc-textfield--focused {
-  @include mdc-theme-prop(border-color, primary);
-}
-
-// stylelint-enable plugin/selector-bem-pattern
 
 .mdc-textfield--fullwidth {
   width: 100%;
