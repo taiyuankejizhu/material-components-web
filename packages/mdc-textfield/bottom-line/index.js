@@ -51,8 +51,6 @@ class MDCTextfieldBottomLine extends MDCComponent {
       addClassToBottomLine: (className) => this.root_.classList.add(className),
       removeClassFromBottomLine: (className) => this.root_.classList.remove(className),
       setBottomLineAttr: (attr, value) => this.root_.setAttribute(attr, value),
-      registerTransitionEndHandler: (handler) => this.root_.addEventListener('transitionend', handler),
-      deregisterTransitionEndHandler: (handler) => this.bottomLine_.removeEventListener('transitionend', handler),
     })));
   }
 }
