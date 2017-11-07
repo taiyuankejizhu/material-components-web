@@ -38,10 +38,6 @@
     margin-bottom: 8px;
   }
 
-  .mdc-textfield--dense + & {
-    margin-bottom: 4px;
-  }
-
   .mdc-textfield--focused + &:not(#{&}--validation-msg) {
     opacity: 1;
   }

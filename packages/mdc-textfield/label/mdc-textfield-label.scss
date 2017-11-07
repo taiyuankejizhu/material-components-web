@@ -61,13 +61,6 @@
   }
 }
 
-.mdc-textfield--with-leading-icon.mdc-textfield--dense {
-
-  .mdc-textfield__label {
-    @include mdc-rtl-reflexive-position(left, $mdc-textfield-dense-icon-padding);
-  }
-}
-
 .mdc-textfield--upgraded:not(.mdc-textfield--fullwidth):not(.mdc-textfield--box) {
 
   .mdc-textfield__label {
@@ -78,14 +71,6 @@
 .mdc-textfield__label--float-above {
   &.mdc-textfield__label--shake {
     animation: invalid-shake-float-above-standard 250ms 1;
-  }
-}
-
-.mdc-textfield--dense {
-
-  .mdc-textfield__label--float-above {
-    // NOTE: This is an eyeball'd approximation of what's in the mocks.
-    transform: translateY(calc(-100% - 2px)) scale(.923, .923);
   }
 }
 

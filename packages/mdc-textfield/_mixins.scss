@@ -37,6 +37,51 @@
   }
 }
 
+@mixin mdc-text-field-dense_() {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-size: .813rem;
+  
+  &.mdc-textfield--with-leading-icon .mdc-textfield__icon,
+  &.mdc-textfield--with-trailing-icon .mdc-textfield__icon {
+    bottom: 16px;
+    transform: scale(.8);
+  }
+
+  & + .mdc-textfield-helptext {
+    margin-bottom: 4px;
+  }
+
+  .mdc-textfield__label--float-above {
+    // NOTE: This is an eyeball'd approximation of what's in the mocks.
+    transform: translateY(calc(-100% - 2px)) scale(.923, .923);
+  }
+
+  &.mdc-textfield--with-leading-icon {
+    .mdc-textfield__icon {
+      @include mdc-rtl-reflexive-position(left, $mdc-textfield-dense-icon-position);
+    }
+
+    .mdc-textfield__input {
+      @include mdc-rtl-reflexive-property(padding, $mdc-textfield-dense-icon-padding, $mdc-textfield-dense-icon-position);
+    }
+
+    .mdc-textfield__label {
+      @include mdc-rtl-reflexive-position(left, $mdc-textfield-dense-icon-padding);
+    }
+  }
+
+  &.mdc-textfield--with-trailing-icon {
+    .mdc-textfield__icon {
+      @include mdc-rtl-reflexive-position(right, $mdc-textfield-dense-icon-position);
+    }
+
+    .mdc-textfield__input {
+      @include mdc-rtl-reflexive-property(padding, $mdc-textfield-dense-icon-position, $mdc-textfield-dense-icon-padding);
+    }
+  }
+}
+
 @mixin mdc-text-field-invalid_() {
   + .mdc-textfield-helptext--validation-msg {
     opacity: 1;

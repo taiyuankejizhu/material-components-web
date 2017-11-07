@@ -111,18 +111,6 @@
   }
 }
 
-.mdc-textfield--with-leading-icon.mdc-textfield--dense {
-  .mdc-textfield__input {
-    @include mdc-rtl-reflexive-property(padding, $mdc-textfield-dense-icon-padding, $mdc-textfield-dense-icon-position);
-  }
-}
-
-.mdc-textfield--with-trailing-icon.mdc-textfield--dense {
-  .mdc-textfield__input {
-    @include mdc-rtl-reflexive-property(padding, $mdc-textfield-dense-icon-position, $mdc-textfield-dense-icon-padding);
-  }
-}
-
 .mdc-textfield--disabled {
 
   .mdc-textfield__input {

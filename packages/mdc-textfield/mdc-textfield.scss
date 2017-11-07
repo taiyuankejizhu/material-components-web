@@ -51,6 +51,10 @@
   @include mdc-text-field-invalid_();
 }
 
+.mdc-textfield--dense {
+  @include mdc-text-field-dense_();
+}
+
 .mdc-textfield--with-leading-icon .mdc-textfield__icon,
 .mdc-textfield--with-trailing-icon .mdc-textfield__icon {
   position: absolute;
@@ -80,26 +84,6 @@
   pointer-events: none;
 }
 
-// stylelint-disable plugin/selector-bem-pattern
-.mdc-textfield--with-leading-icon.mdc-textfield--dense .mdc-textfield__icon,
-.mdc-textfield--with-trailing-icon.mdc-textfield--dense .mdc-textfield__icon {
-  bottom: 16px;
-  transform: scale(.8);
-}
-
-.mdc-textfield--with-leading-icon.mdc-textfield--dense {
-  .mdc-textfield__icon {
-    @include mdc-rtl-reflexive-position(left, $mdc-textfield-dense-icon-position);
-  }
-}
-
-.mdc-textfield--with-trailing-icon.mdc-textfield--dense {
-  .mdc-textfield__icon {
-    @include mdc-rtl-reflexive-position(right, $mdc-textfield-dense-icon-position);
-  }
-}
-// stylelint-enable plugin/selector-bem-pattern
-
 .mdc-textfield--upgraded:not(.mdc-textfield--fullwidth):not(.mdc-textfield--box) {
   display: inline-flex;
   position: relative;
@@ -110,12 +94,6 @@
   &:not(.mdc-textfield--textarea) {
     height: 48px;
   }
-}
-
-.mdc-textfield--dense {
-  margin-top: 12px;
-  margin-bottom: 4px;
-  font-size: .813rem;
 }
 
 .mdc-textfield--disabled {
