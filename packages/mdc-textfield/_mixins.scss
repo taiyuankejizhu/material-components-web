@@ -90,6 +90,59 @@
   }
 }
 
+@mixin mdc-text-field-disabled_() {
+  pointer-events: none;
+
+  &:not(.mdc-textfield--invalid) + .mdc-textfield-helptext {
+    @include mdc-theme-prop(color, text-disabled-on-light);
+  }
+
+  .mdc-textfield__input {
+    @include mdc-theme-prop(color, text-disabled-on-light);
+    border-bottom: 1px dotted $mdc-textfield-disabled-border-on-light;
+
+    @include mdc-theme-dark(".mdc-textfield", true) {
+      border-bottom: 1px dotted $mdc-textfield-disabled-border-on-dark;
+    }
+  }
+
+  .mdc-textfield__label {
+    @include mdc-theme-prop(color, text-disabled-on-light);
+    bottom: 8px;
+    cursor: default;
+  }
+
+  @include mdc-theme-dark(".mdc-textfield", true) {
+    .mdc-textfield__input,
+    .mdc-textfield__label {
+      @include mdc-theme-prop(color, text-disabled-on-dark);
+    }
+
+    &:not(.mdc-textfield--invalid) + .mdc-textfield-helptext {
+      @include mdc-theme-prop(color, text-disabled-on-dark);
+    }
+  }
+
+  &.mdc-textfield--textarea {
+    border-style: solid;
+    border-color: $mdc-textfield-disabled-border-on-light;
+    background-color: $mdc-textarea-disabled-background-on-light;
+
+    .mdc-textfield__label {
+      background-color: $mdc-textarea-disabled-background-on-light;
+    }
+
+    @include mdc-theme-dark(".mdc-textfield") {
+      border-color: $mdc-textfield-disabled-border-on-dark;
+      background-color: $mdc-textarea-disabled-background-on-dark;
+
+      .mdc-textfield__label {
+        background-color: $mdc-textarea-disabled-background-on-dark;
+      }
+    }
+  }
+}
+
 @mixin mdc-text-field-dense_() {
   margin-top: 12px;
   margin-bottom: 4px;

@@ -43,14 +43,6 @@
   // stylelint-enable plugin/selector-bem-pattern
 }
 
-.mdc-textfield--focused {
-  @include mdc-text-field-focused_();
-}
-
-.mdc-textfield--invalid {
-  @include mdc-text-field-invalid_();
-}
-
 .mdc-textfield--box {
   @include mdc-text-field-box_();
 }
@@ -58,6 +50,19 @@
 .mdc-textfield--dense {
   @include mdc-text-field-dense_();
 }
+
+.mdc-textfield--invalid {
+  @include mdc-text-field-invalid_();
+}
+
+.mdc-textfield--focused {
+  @include mdc-text-field-focused_();
+}
+
+.mdc-textfield--disabled {
+  @include mdc-text-field-disabled_();
+}
+
 
 .mdc-textfield--with-leading-icon .mdc-textfield__icon,
 .mdc-textfield--with-trailing-icon .mdc-textfield__icon {
@@ -100,33 +105,6 @@
   }
 }
 
-.mdc-textfield--disabled {
-  pointer-events: none;
-
-  // stylelint-disable plugin/selector-bem-pattern
-  .mdc-textfield__input,
-  .mdc-textfield__label,
-  + .mdc-textfield-helptext {
-    @include mdc-theme-prop(color, text-disabled-on-light);
-  }
-  // stylelint-enable plugin/selector-bem-pattern
-
-  .mdc-textfield__input,
-  .mdc-textfield__label {
-    @include mdc-theme-dark(".mdc-textfield") {
-      @include mdc-theme-prop(color, text-disabled-on-dark);
-    }
-  }
-
-  @include mdc-theme-dark(".mdc-textfield", true) {
-    // stylelint-disable plugin/selector-bem-pattern
-    + .mdc-textfield-helptext {
-      @include mdc-theme-prop(color, text-disabled-on-dark);
-    }
-    // stylelint-enable plugin/selector-bem-pattern
-  }
-}
-
 .mdc-textfield--textarea {
   @include mdc-text-field-textarea-corner-radius($mdc-text-field-border-radius);
 
@@ -140,21 +118,7 @@
   @include mdc-theme-dark(".mdc-textfield") {
     border-color: $mdc-textarea-border-on-dark;
   }
-
-  // stylelint-disable plugin/selector-bem-pattern
-  &.mdc-textfield--disabled {
-    border-style: solid;
-    border-color: $mdc-textfield-disabled-border-on-light;
-    background-color: $mdc-textarea-disabled-background-on-light;
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      border-color: $mdc-textfield-disabled-border-on-dark;
-      background-color: $mdc-textarea-disabled-background-on-dark;
-    }
-  }
 }
-
-// stylelint-enable plugin/selector-bem-pattern
 
 .mdc-textfield--fullwidth {
   width: 100%;

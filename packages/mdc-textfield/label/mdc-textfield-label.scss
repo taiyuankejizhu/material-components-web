@@ -84,14 +84,6 @@
   }
 }
 
-.mdc-textfield--disabled {
-
-  .mdc-textfield__label {
-    bottom: 8px;
-    cursor: default;
-  }
-}
-
 .mdc-textfield__input:required + .mdc-textfield__label::after {
   margin-left: 1px;
   content: "*";
@@ -116,17 +108,6 @@
       // to position the label within the bounds of the inset padding.
       // Note that the scale factor is an eyeball'd approximation of what's shown in the mocks.
       transform: translateY(-50%) scale(.923, .923);
-    }
-  }
-
-  &.mdc-textfield--disabled {
-
-    .mdc-textfield__label {
-      background-color: $mdc-textarea-disabled-background-on-light;
-
-      @include mdc-theme-dark(".mdc-textfield") {
-        background-color: $mdc-textarea-disabled-background-on-dark;
-      }
     }
   }
 }

@@ -101,17 +101,6 @@
   }
 }
 
-.mdc-textfield--disabled {
-
-  .mdc-textfield__input {
-    border-bottom: 1px dotted $mdc-textfield-disabled-border-on-light;
-
-    @include mdc-theme-dark(".mdc-textfield", true) {
-      border-bottom: 1px dotted $mdc-textfield-disabled-border-on-dark;
-    }
-  }
-}
-
 .mdc-textfield--textarea {
 
   // stylelint-disable plugin/selector-bem-pattern
