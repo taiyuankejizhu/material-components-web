@@ -75,12 +75,6 @@
   }
 }
 
-.mdc-textfield--invalid {
-  .mdc-textfield__label {
-    color: $mdc-textfield-error-on-light;
-  }
-}
-
 .mdc-textfield__label--float-above {
   &.mdc-textfield__label--shake {
     animation: invalid-shake-float-above-standard 250ms 1;
@@ -100,16 +94,6 @@
   .mdc-textfield__label {
     bottom: 8px;
     cursor: default;
-  }
-}
-
-.mdc-textfield--invalid.mdc-textfield--disabled {
-  .mdc-textfield__label {
-    @include mdc-theme-prop(color, text-disabled-on-light);
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      @include mdc-theme-prop(color, text-disabled-on-dark);
-    }
   }
 }
 

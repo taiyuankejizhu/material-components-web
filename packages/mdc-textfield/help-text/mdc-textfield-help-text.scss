@@ -57,15 +57,3 @@
 
 // postcss-bem-linter: end
 
-.mdc-textfield--invalid {
-  + .mdc-textfield-helptext--validation-msg {
-    opacity: 1;
-    color: $mdc-textfield-error-on-light;
-  }
-
-  @include mdc-theme-dark(".mdc-textfield", true) {
-    + .mdc-textfield-helptext--validation-msg {
-      color: $mdc-textfield-error-on-dark;
-    }
-  }
-}

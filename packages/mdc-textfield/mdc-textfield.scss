@@ -47,6 +47,10 @@
   @include mdc-text-field-box_();
 }
 
+.mdc-textfield--invalid {
+  @include mdc-text-field-invalid_();
+}
+
 .mdc-textfield--with-leading-icon .mdc-textfield__icon,
 .mdc-textfield--with-trailing-icon .mdc-textfield__icon {
   position: absolute;
@@ -107,13 +111,6 @@
     height: 48px;
   }
 }
-
-// stylelint-disable plugin/selector-bem-pattern
-.mdc-textfield--invalid.mdc-textfield--textarea {
-  border-color: $mdc-textfield-error-on-light;
-}
-
-// stylelint-enable plugin/selector-bem-pattern
 
 .mdc-textfield--dense {
   margin-top: 12px;
