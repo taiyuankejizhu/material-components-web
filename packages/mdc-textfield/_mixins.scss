@@ -36,25 +36,3 @@
     border-radius: max($radius - 2, 0);
   }
 }
-
-@mixin mdc-text-field-invalid-label-shake-keyframes_($modifier, $positionY) {
-  @keyframes invalid-shake-float-above-#{$modifier} {
-    0% {
-      transform: translateX(0) translateY(-#{$positionY}) scale(.75, .75);
-    }
-
-    33% {
-      animation-timing-function: cubic-bezier(.5, 0, .701732, .495819);
-      transform: translateX(10px) translateY(-#{$positionY}) scale(.75, .75);
-    }
-
-    66% {
-      animation-timing-function: cubic-bezier(.302435, .381352, .55, .956352);
-      transform: translateX(-5px) translateY(-#{$positionY}) scale(.75, .75);
-    }
-
-    100% {
-      transform: translateX(0) translateY(-#{$positionY}) scale(.75, .75);
-    }
-  }
-}

@@ -24,9 +24,7 @@
 @import "@material/typography/variables";
 @import "./bottom-line/mdc-textfield-bottom-line";
 @import "./help-text/mdc-textfield-help-text";
-
-@include mdc-text-field-invalid-label-shake_keyframes_(standard, 100%);
-@include mdc-text-field-invalid-label-shake_keyframes_(box, 50%);
+@import "./label/mdc-textfield-label";
 
 // postcss-bem-linter: define textfield
 .mdc-textfield {
@@ -98,33 +96,6 @@
       }
     }
   }
-
-  &__label {
-    position: absolute;
-    bottom: 8px;
-    left: 0;
-    transform-origin: left top;
-    transition: mdc-textfield-transition(transform), mdc-textfield-transition(color);
-    color: $mdc-textfield-underline-on-light-idle;
-    cursor: text;
-
-    // stylelint-disable plugin/selector-bem-pattern
-    @include mdc-rtl(".mdc-textfield") {
-      right: 0;
-      left: auto;
-      transform-origin: right top;
-    }
-    // stylelint-enable plugin/selector-bem-pattern
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      @include mdc-theme-prop(color, $mdc-textfield-dark-label);
-    }
-
-    &--float-above {
-      transform: translateY(-100%) scale(.75, .75);
-      cursor: auto;
-    }
-  }
 }
 
 // Move label when textfield gets autofilled in Chrome
@@ -169,36 +140,6 @@
     padding: 20px 16px 0;
   }
 
-  .mdc-textfield__label {
-    @include mdc-rtl-reflexive-position(left, 16px);
-
-    position: absolute;
-    bottom: 20px;
-    width: calc(100% - #{$mdc-textfield-icon-padding});
-    color: $mdc-textfield-box-secondary-text;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    pointer-events: none;
-    overflow: hidden;
-    // Force the label into its own layer to prevent to prevent visible layer promotion adjustments
-    // when the ripple is activated behind it.
-    will-change: transform;
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      @include mdc-theme-prop(color, text-secondary-on-dark);
-    }
-
-    &--float-above {
-      transform: translateY(-50%) scale(.75, .75);
-    }
-  }
-
-  .mdc-textfield__label--float-above {
-    &.mdc-textfield__label--shake {
-      animation: invalid-shake-float-above-box 250ms 1;
-    }
-  }
-
   &.mdc-textfield--disabled {
     @include mdc-theme-prop(color, $mdc-textfield-light-placeholder);
 
@@ -210,10 +151,6 @@
       @include mdc-theme-prop(color, $mdc-textfield-dark-placeholder);
 
       border-bottom: none;
-    }
-
-    .mdc-textfield__label {
-      bottom: 20px;
     }
 
     .mdc-textfield__icon {
@@ -228,16 +165,6 @@
   &.mdc-textfield--dense {
     .mdc-textfield__input {
       padding: 12px 12px 0;
-    }
-
-    .mdc-textfield__label {
-      @include mdc-rtl-reflexive-position(left, 12px);
-
-      bottom: 20px;
-
-      &--float-above {
-        transform: translateY(calc(-75% - 2px)) scale(.923, .923);
-      }
     }
   }
   // stylelint-enable plugin/selector-bem-pattern
@@ -261,10 +188,6 @@
 
   .mdc-textfield__icon {
     @include mdc-rtl-reflexive-position(left, $mdc-textfield-icon-position);
-  }
-
-  .mdc-textfield__label {
-    @include mdc-rtl-reflexive-position(left, $mdc-textfield-icon-padding);
   }
 }
 
@@ -299,10 +222,6 @@
   .mdc-textfield__icon {
     @include mdc-rtl-reflexive-position(left, $mdc-textfield-dense-icon-position);
   }
-
-  .mdc-textfield__label {
-    @include mdc-rtl-reflexive-position(left, $mdc-textfield-dense-icon-padding);
-  }
 }
 
 .mdc-textfield--with-trailing-icon.mdc-textfield--dense {
@@ -326,17 +245,9 @@
   &:not(.mdc-textfield--textarea) {
     height: 48px;
   }
-
-  .mdc-textfield__label {
-    pointer-events: none;
-  }
 }
 
 .mdc-textfield--invalid {
-  .mdc-textfield__label {
-    color: $mdc-textfield-error-on-light;
-  }
-
   .mdc-textfield__input {
     border-color: $mdc-textfield-error-on-light;
   }
@@ -347,22 +258,12 @@
   border-color: $mdc-textfield-error-on-light;
 }
 
-.mdc-textfield__label--float-above {
-  &.mdc-textfield__label--shake {
-    animation: invalid-shake-float-above-standard 250ms 1;
-  }
-}
 // stylelint-enable plugin/selector-bem-pattern
 
 .mdc-textfield--dense {
   margin-top: 12px;
   margin-bottom: 4px;
   font-size: .813rem;
-
-  .mdc-textfield__label--float-above {
-    // NOTE: This is an eyeball'd approximation of what's in the mocks.
-    transform: translateY(calc(-100% - 2px)) scale(.923, .923);
-  }
 }
 
 .mdc-textfield--disabled {
@@ -398,42 +299,11 @@
     }
     // stylelint-enable plugin/selector-bem-pattern
   }
-
-  .mdc-textfield__label {
-    bottom: 8px;
-    cursor: default;
-  }
-}
-
-.mdc-textfield--invalid.mdc-textfield--disabled {
-  .mdc-textfield__label {
-    @include mdc-theme-prop(color, text-disabled-on-light);
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      @include mdc-theme-prop(color, text-disabled-on-dark);
-    }
-  }
-}
-
-.mdc-textfield__input:required + .mdc-textfield__label::after {
-  margin-left: 1px;
-  content: "*";
-
-  .mdc-textfield--focused & {
-    color: $mdc-textfield-error-on-light;
-
-    @include mdc-theme-dark(".mdc-textfield", true) {
-      color: $mdc-textfield-error-on-dark;
-    }
-  }
 }
 
 .mdc-textfield--textarea {
   @include mdc-text-field-textarea-corner-radius($mdc-text-field-border-radius);
 
-  $padding-inset: 16px;
-  $label-offset-y: $padding-inset + 2;
-  $label-offset-x: $padding-inset;
 
   display: flex;
   height: initial;
@@ -447,8 +317,8 @@
 
   // stylelint-disable plugin/selector-bem-pattern
   .mdc-textfield__input {
-    padding: $padding-inset;
-    padding-top: $padding-inset * 2;
+    padding: $mdc-text-field-padding-inset;
+    padding-top: $mdc-text-field-padding-inset * 2;
     border: 1px solid transparent;
 
     &:focus {
@@ -474,26 +344,6 @@
     }
   }
 
-  .mdc-textfield__label {
-    @include mdc-rtl-reflexive-position(left, 1px);
-
-    top: $label-offset-y;
-    bottom: auto;
-    padding: 8px 16px;
-    background-color: $mdc-textarea-light-background;
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      background-color: $mdc-textarea-dark-background;
-    }
-
-    &--float-above {
-      // Translate above the top of the input, and compensate for the amount of offset needed
-      // to position the label within the bounds of the inset padding.
-      // Note that the scale factor is an eyeball'd approximation of what's shown in the mocks.
-      transform: translateY(-50%) scale(.923, .923);
-    }
-  }
-
   &.mdc-textfield--disabled {
     border-style: solid;
     border-color: $mdc-textfield-disabled-border-on-light;
@@ -503,19 +353,11 @@
       border-color: $mdc-textfield-disabled-border-on-dark;
       background-color: $mdc-textarea-disabled-background-on-dark;
     }
-
-    .mdc-textfield__label {
-      background-color: $mdc-textarea-disabled-background-on-light;
-
-      @include mdc-theme-dark(".mdc-textfield") {
-        background-color: $mdc-textarea-disabled-background-on-dark;
-      }
-    }
   }
 
   &:not(.mdc-textfield--upgraded) {
     .mdc-textfield__input {
-      padding-top: $padding-inset;
+      padding-top: $mdc-text-field-padding-inset;
     }
   }
 }
