@@ -17,6 +17,7 @@
 
 import MDCTextfieldInputFoundation from './input/foundation';
 import MDCTextfieldLabelFoundation from './label/foundation';
+import MDCTextfieldBottomLineFoundation from './bottom-line/foundation';
 
 /**
  * Adapter for MDC Textfield.
@@ -76,18 +77,6 @@ class MDCTextfieldAdapter {
   notifyIconAction() {}
 
   /**
-   * Adds a class to the bottom line element.
-   * @param {string} className
-   */
-  addClassToBottomLine(className) {}
-
-  /**
-   * Removes a class from the bottom line element.
-   * @param {string} className
-   */
-  removeClassFromBottomLine(className) {}
-
-  /**
    * Adds a class to the help text element. Note that in our code we check for
    * whether or not we have a help text element and if we don't, we simply
    * return.
@@ -123,25 +112,6 @@ class MDCTextfieldAdapter {
   deregisterInputInteractionHandler(evtType, handler) {}
 
   /**
-   * Registers an event listener on the bottom line element for a "transitionend" event.
-   * @param {function(!Event): undefined} handler
-   */
-  registerTransitionEndHandler(handler) {}
-
-  /**
-   * Deregisters an event listener on the bottom line element for a "transitionend" event.
-   * @param {function(!Event): undefined} handler
-   */
-  deregisterTransitionEndHandler(handler) {}
-
-  /**
-   * Sets an attribute with a given value on the bottom line element.
-   * @param {string} attr
-   * @param {string} value
-   */
-  setBottomLineAttr(attr, value) {}
-
-  /**
    * Sets an attribute with a given value on the help text element.
    * @param {string} name
    * @param {string} value
@@ -163,6 +133,11 @@ class MDCTextfieldAdapter {
    * @return {MDCTextfieldLabelFoundation}
    */
   getLabelFoundation() {}
+
+  /** 
+   * @return {?MDCTextfieldBottomLineFoundation}
+   */
+  getBottomLineFoundation() {}
 }
 
 export default MDCTextfieldAdapter;
