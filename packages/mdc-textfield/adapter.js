@@ -15,17 +15,7 @@
  * limitations under the License.
  */
 
-/* eslint no-unused-vars: [2, {"args": "none"}] */
-
-/**
- * @typedef {{
- *   value: string,
- *   disabled: boolean,
- *   badInput: boolean,
- *   checkValidity: (function(): boolean)
- * }}
- */
-let NativeInputType;
+import MDCTextfieldInputFoundation from './input/foundation';
 
 /**
  * Adapter for MDC Textfield.
@@ -178,17 +168,10 @@ class MDCTextfieldAdapter {
    */
   removeHelptextAttr(name) {}
 
-  /**
-   * Returns an object representing the native text input element, with a
-   * similar API shape. The object returned should include the value, disabled
-   * and badInput properties, as well as the checkValidity() function. We never
-   * alter the value within our code, however we do update the disabled
-   * property, so if you choose to duck-type the return value for this method
-   * in your implementation it's important to keep this in mind. Also note that
-   * this method can return null, which the foundation will handle gracefully.
-   * @return {?Element|?NativeInputType}
+  /** 
+   * @return {MDCTextfieldInputFoundation}
    */
-  getNativeInput() {}
+  getInputFoundation() {}
 }
 
-export {MDCTextfieldAdapter, NativeInputType};
+export default MDCTextfieldAdapter;

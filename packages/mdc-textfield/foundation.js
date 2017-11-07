@@ -16,8 +16,9 @@
  */
 
 import MDCFoundation from '@material/base/foundation';
-import {MDCTextfieldAdapter, NativeInputType} from './adapter';
+import MDCTextfieldAdapter from './adapter';
 import {cssClasses, strings} from './constants';
+import MDCTextfieldInputFoundation from './input/foundation';
 
 
 /**
@@ -56,14 +57,12 @@ class MDCTextfieldFoundation extends MDCFoundation {
       addClassToHelptext: () => {},
       removeClassFromHelptext: () => {},
       helptextHasClass: () => false,
-      registerInputInteractionHandler: () => {},
-      deregisterInputInteractionHandler: () => {},
       registerTransitionEndHandler: () => {},
       deregisterTransitionEndHandler: () => {},
       setBottomLineAttr: () => {},
       setHelptextAttr: () => {},
       removeHelptextAttr: () => {},
-      getNativeInput: () => {},
+      getInputFoundation: () => {},
     });
   }
 
@@ -74,17 +73,11 @@ class MDCTextfieldFoundation extends MDCFoundation {
     super(Object.assign(MDCTextfieldFoundation.defaultAdapter, adapter));
 
     /** @private {boolean} */
-    this.isFocused_ = false;
-    /** @private {boolean} */
-    this.receivedUserInput_ = false;
-    /** @private {boolean} */
     this.useCustomValidityChecking_ = false;
     /** @private {function(): undefined} */
     this.inputFocusHandler_ = () => this.activateFocus_();
     /** @private {function(): undefined} */
     this.inputBlurHandler_ = () => this.deactivateFocus_();
-    /** @private {function(): undefined} */
-    this.inputInputHandler_ = () => this.autoCompleteFocus_();
     /** @private {function(!Event): undefined} */
     this.setPointerXOffset_ = (evt) => this.setBottomLineTransformOrigin_(evt);
     /** @private {function(!Event): undefined} */
@@ -96,16 +89,16 @@ class MDCTextfieldFoundation extends MDCFoundation {
   init() {
     this.adapter_.addClass(MDCTextfieldFoundation.cssClasses.UPGRADED);
     // Ensure label does not collide with any pre-filled value.
-    if (this.getNativeInput_().value) {
+    if (this.adapter_.getInputFoundation().getValue()) {
       this.adapter_.addClassToLabel(MDCTextfieldFoundation.cssClasses.LABEL_FLOAT_ABOVE);
     }
 
-    this.adapter_.registerInputInteractionHandler('focus', this.inputFocusHandler_);
-    this.adapter_.registerInputInteractionHandler('blur', this.inputBlurHandler_);
-    this.adapter_.registerInputInteractionHandler('input', this.inputInputHandler_);
-    ['mousedown', 'touchstart'].forEach((evtType) => {
-      this.adapter_.registerInputInteractionHandler(evtType, this.setPointerXOffset_);
-    });
+    this.adapter_.registerInputInteractionHandler(
+      MDCTextfieldInputFoundation.strings.FOCUS_EVENT, this.inputFocusHandler_);
+    this.adapter_.registerInputInteractionHandler(
+      MDCTextfieldInputFoundation.strings.BLUR_EVENT, this.inputBlurHandler_);
+    this.adapter_.registerInputInteractionHandler(
+      MDCTextfieldInputFoundation.strings.PRESSED_EVENT, this.setPointerXOffset_);
     ['click', 'keydown'].forEach((evtType) => {
       this.adapter_.registerTextFieldInteractionHandler(evtType, this.textFieldInteractionHandler_);
     });
@@ -114,12 +107,12 @@ class MDCTextfieldFoundation extends MDCFoundation {
 
   destroy() {
     this.adapter_.removeClass(MDCTextfieldFoundation.cssClasses.UPGRADED);
-    this.adapter_.deregisterInputInteractionHandler('focus', this.inputFocusHandler_);
-    this.adapter_.deregisterInputInteractionHandler('blur', this.inputBlurHandler_);
-    this.adapter_.deregisterInputInteractionHandler('input', this.inputInputHandler_);
-    ['mousedown', 'touchstart'].forEach((evtType) => {
-      this.adapter_.deregisterInputInteractionHandler(evtType, this.setPointerXOffset_);
-    });
+    this.adapter_.deregisterInputInteractionHandler(
+      MDCTextfieldInputFoundation.strings.FOCUS_EVENT, this.inputFocusHandler_);
+    this.adapter_.deregisterInputInteractionHandler(
+      MDCTextfieldInputFoundation.strings.BLUR_EVENT, this.inputBlurHandler_);
+    this.adapter_.deregisterInputInteractionHandler(
+      MDCTextfieldInputFoundation.strings.PRESSED_EVENT, this.setPointerXOffset_);
     ['click', 'keydown'].forEach((evtType) => {
       this.adapter_.deregisterTextFieldInteractionHandler(evtType, this.textFieldInteractionHandler_);
     });
@@ -132,7 +125,7 @@ class MDCTextfieldFoundation extends MDCFoundation {
    * @private
    */
   handleTextFieldInteraction_(evt) {
-    if (this.adapter_.getNativeInput().disabled) {
+    if (this.adapter_.getInputFoundation().disabled) {
       return;
     }
 
@@ -159,7 +152,6 @@ class MDCTextfieldFoundation extends MDCFoundation {
     this.adapter_.addClassToLabel(LABEL_FLOAT_ABOVE);
     this.adapter_.removeClassFromLabel(LABEL_SHAKE);
     this.showHelptext_();
-    this.isFocused_ = true;
   }
 
   /**
@@ -176,17 +168,6 @@ class MDCTextfieldFoundation extends MDCFoundation {
       `transform-origin: ${normalizedX}px center`;
 
     this.adapter_.setBottomLineAttr('style', attributeString);
-  }
-
-  /**
-   * Activates the Textfield's focus state in cases when the input value
-   * changes without user input (e.g. programatically).
-   * @private
-   */
-  autoCompleteFocus_() {
-    if (!this.receivedUserInput_) {
-      this.activateFocus_();
-    }
   }
 
   /**
@@ -221,15 +202,13 @@ class MDCTextfieldFoundation extends MDCFoundation {
    */
   deactivateFocus_() {
     const {FOCUSED, LABEL_FLOAT_ABOVE, LABEL_SHAKE} = MDCTextfieldFoundation.cssClasses;
-    const input = this.getNativeInput_();
+    const input = this.adapter_.getInputFoundation();
 
-    this.isFocused_ = false;
     this.adapter_.removeClass(FOCUSED);
     this.adapter_.removeClassFromLabel(LABEL_SHAKE);
 
-    if (!input.value && !this.isBadInput_()) {
+    if (!input.getValue() && !input.isBadInput()) {
       this.adapter_.removeClassFromLabel(LABEL_FLOAT_ABOVE);
-      this.receivedUserInput_ = false;
     }
 
     if (!this.useCustomValidityChecking_) {
@@ -287,27 +266,11 @@ class MDCTextfieldFoundation extends MDCFoundation {
   }
 
   /**
-   * @return {boolean} True if the Textfield input fails validity checks.
-   * @private
-   */
-  isBadInput_() {
-    const input = this.getNativeInput_();
-    return input.validity ? input.validity.badInput : input.badInput;
-  }
-
-  /**
-   * @return {boolean} True if the Textfield is disabled.
-   */
-  isDisabled() {
-    return this.getNativeInput_().disabled;
-  }
-
-  /**
    * @param {boolean} disabled Sets the textfield disabled or enabled.
    */
   setDisabled(disabled) {
     const {DISABLED} = MDCTextfieldFoundation.cssClasses;
-    this.getNativeInput_().disabled = disabled;
+    this.adapter_.getInputFoundation().setDisabled(disabled);
     if (disabled) {
       this.adapter_.addClass(DISABLED);
       this.adapter_.setIconAttr('tabindex', '-1');
@@ -315,21 +278,6 @@ class MDCTextfieldFoundation extends MDCFoundation {
       this.adapter_.removeClass(DISABLED);
       this.adapter_.setIconAttr('tabindex', '0');
     }
-  }
-
-  /**
-   * @return {!Element|!NativeInputType} The native text input from the
-   * host environment, or a dummy if none exists.
-   * @private
-   */
-  getNativeInput_() {
-    return this.adapter_.getNativeInput() ||
-    /** @type {!NativeInputType} */ ({
-      checkValidity: () => true,
-      value: '',
-      disabled: false,
-      badInput: false,
-    });
   }
 
   /**
