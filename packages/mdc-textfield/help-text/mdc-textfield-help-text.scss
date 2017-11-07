@@ -38,19 +38,6 @@
     margin-bottom: 8px;
   }
 
-  .mdc-textfield--dense + & {
-    margin-bottom: 4px;
-  }
-
-  .mdc-textfield--focused + &:not(#{&}--validation-msg) {
-    opacity: 1;
-  }
-
-  .mdc-textfield--box + & {
-    margin-right: 16px;
-    margin-left: 16px;
-  }
-
   // stylelint-enable plugin/selector-bem-pattern
 }
 
@@ -62,15 +49,3 @@
 
 // postcss-bem-linter: end
 
-.mdc-textfield--invalid {
-  + .mdc-textfield-helptext--validation-msg {
-    opacity: 1;
-    color: $mdc-textfield-error-on-light;
-  }
-
-  @include mdc-theme-dark(".mdc-textfield", true) {
-    + .mdc-textfield-helptext--validation-msg {
-      color: $mdc-textfield-error-on-dark;
-    }
-  }
-}

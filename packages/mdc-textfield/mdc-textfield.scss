@@ -44,54 +44,33 @@
 }
 
 .mdc-textfield--box {
-  @include mdc-ripple-surface;
-  @include mdc-ripple-color(black, .04);
-  @include mdc-ripple-radius;
-  @include mdc-text-field-box-corner-radius($mdc-text-field-border-radius);
-
-  display: inline-flex;
-  position: relative;
-  height: 56px;
-  background-color: $mdc-textfield-box-background;
-  overflow: hidden;
-
-  @include mdc-theme-dark(".mdc-textfield", true) {
-    background-color: $mdc-textfield-box-background-dark;
-  }
-
-  @include mdc-theme-dark(".mdc-textfield", true) {
-    @include mdc-ripple-color(white, .05);
-  }
-
-  // NOTE: For some reason, stylelint complains that the patterns below don't follow BEM.
-  // However, it seems to emit the wrong selector for that pattern. Thus, we disable it above where
-  // we would normally disable it (on combined selectors) as a workaround.
-
-  // stylelint-disable plugin/selector-bem-pattern
-
-  &.mdc-textfield--disabled {
-    @include mdc-theme-prop(color, $mdc-textfield-light-placeholder);
-
-    border-bottom: none;
-    background-color: $mdc-textfield-box-disabled-background;
-
-    @include mdc-theme-dark(".mdc-textfield", true) {
-      @include mdc-theme-prop(background-color, $mdc-textfield-dark-background);
-      @include mdc-theme-prop(color, $mdc-textfield-dark-placeholder);
-
-      border-bottom: none;
-    }
-
-    .mdc-textfield__icon {
-      @include mdc-theme-prop(color, $mdc-textfield-disabled-icon-on-light);
-
-      @include mdc-theme-dark() {
-        @include mdc-theme-prop(color, $mdc-textfield-disabled-icon-on-dark);
-      }
-    }
-  }
-  // stylelint-enable plugin/selector-bem-pattern
+  @include mdc-text-field-box_();
 }
+
+.mdc-textfield--textarea {
+  @include mdc-text-field-textarea_();
+}
+
+.mdc-textfield--fullwidth {
+  @include mdc-text-field-fullwidth_();
+}
+
+.mdc-textfield--dense {
+  @include mdc-text-field-dense_();
+}
+
+.mdc-textfield--invalid {
+  @include mdc-text-field-invalid_();
+}
+
+.mdc-textfield--focused {
+  @include mdc-text-field-focused_();
+}
+
+.mdc-textfield--disabled {
+  @include mdc-text-field-disabled_();
+}
+
 
 .mdc-textfield--with-leading-icon .mdc-textfield__icon,
 .mdc-textfield--with-trailing-icon .mdc-textfield__icon {
@@ -122,26 +101,6 @@
   pointer-events: none;
 }
 
-// stylelint-disable plugin/selector-bem-pattern
-.mdc-textfield--with-leading-icon.mdc-textfield--dense .mdc-textfield__icon,
-.mdc-textfield--with-trailing-icon.mdc-textfield--dense .mdc-textfield__icon {
-  bottom: 16px;
-  transform: scale(.8);
-}
-
-.mdc-textfield--with-leading-icon.mdc-textfield--dense {
-  .mdc-textfield__icon {
-    @include mdc-rtl-reflexive-position(left, $mdc-textfield-dense-icon-position);
-  }
-}
-
-.mdc-textfield--with-trailing-icon.mdc-textfield--dense {
-  .mdc-textfield__icon {
-    @include mdc-rtl-reflexive-position(right, $mdc-textfield-dense-icon-position);
-  }
-}
-// stylelint-enable plugin/selector-bem-pattern
-
 .mdc-textfield--upgraded:not(.mdc-textfield--fullwidth):not(.mdc-textfield--box) {
   display: inline-flex;
   position: relative;
@@ -152,61 +111,6 @@
   &:not(.mdc-textfield--textarea) {
     height: 48px;
   }
-}
-
-.mdc-textfield--dense {
-  margin-top: 12px;
-  margin-bottom: 4px;
-  font-size: .813rem;
-}
-
-.mdc-textfield--disabled {
-  pointer-events: none;
-
-  // stylelint-disable plugin/selector-bem-pattern
-  .mdc-textfield__input,
-  .mdc-textfield__label,
-  + .mdc-textfield-helptext {
-    @include mdc-theme-prop(color, text-disabled-on-light);
-  }
-  // stylelint-enable plugin/selector-bem-pattern
-
-  .mdc-textfield__input,
-  .mdc-textfield__label {
-    @include mdc-theme-dark(".mdc-textfield") {
-      @include mdc-theme-prop(color, text-disabled-on-dark);
-    }
-  }
-
-  @include mdc-theme-dark(".mdc-textfield", true) {
-    // stylelint-disable plugin/selector-bem-pattern
-    + .mdc-textfield-helptext {
-      @include mdc-theme-prop(color, text-disabled-on-dark);
-    }
-    // stylelint-enable plugin/selector-bem-pattern
-  }
-}
-
-.mdc-textfield--fullwidth {
-  width: 100%;
-
-  // stylelint-disable plugin/selector-bem-pattern
-
-  &:not(.mdc-textfield--textarea) {
-    display: block;
-    box-sizing: border-box;
-    height: 56px;
-    margin: 0;
-    border: none;
-    border-bottom: 1px solid $mdc-textfield-divider-on-light;
-    outline: none;
-  }
-
-  @include mdc-theme-dark {
-    border-bottom: 1px solid $mdc-textfield-divider-on-dark;
-  }
-
-  // stylelint-enable plugin/selector-bem-pattern
 }
 
 .mdc-textfield--box:not(.mdc-textfield--upgraded) {

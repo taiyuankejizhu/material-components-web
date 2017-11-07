@@ -89,38 +89,6 @@
   }
 }
 
-// Move label when textfield gets autofilled in Chrome
-.mdc-textfield__input {
-  // stylelint-disable plugin/selector-bem-pattern
-  &:-webkit-autofill + .mdc-textfield__label {
-    transform: translateY(-100%) scale(.75, .75);
-    cursor: auto;
-  }
-  // stylelint-enable plugin/selector-bem-pattern
-}
-
-.mdc-textfield--box {
-
-  // NOTE: For some reason, stylelint complains that the patterns below don't follow BEM.
-  // However, it seems to emit the wrong selector for that pattern. Thus, we disable it above where
-  // we would normally disable it (on combined selectors) as a workaround.
-
-  // stylelint-disable plugin/selector-bem-pattern
-  .mdc-textfield__input {
-    align-self: flex-end;
-    box-sizing: border-box;
-    height: 100%;
-    padding: 20px 16px 0;
-  }
-
-  &.mdc-textfield--dense {
-    .mdc-textfield__input {
-      padding: 12px 12px 0;
-    }
-  }
-  // stylelint-enable plugin/selector-bem-pattern
-}
-
 .mdc-textfield--with-leading-icon {
   .mdc-textfield__input {
     @include mdc-rtl-reflexive-property(padding, $mdc-textfield-icon-padding, $mdc-textfield-icon-position);
@@ -131,93 +99,6 @@
   .mdc-textfield__input {
     @include mdc-rtl-reflexive-property(padding, $mdc-textfield-icon-position, $mdc-textfield-icon-padding);
   }
-}
-
-.mdc-textfield--with-leading-icon.mdc-textfield--dense {
-  .mdc-textfield__input {
-    @include mdc-rtl-reflexive-property(padding, $mdc-textfield-dense-icon-padding, $mdc-textfield-dense-icon-position);
-  }
-}
-
-.mdc-textfield--with-trailing-icon.mdc-textfield--dense {
-  .mdc-textfield__input {
-    @include mdc-rtl-reflexive-property(padding, $mdc-textfield-dense-icon-position, $mdc-textfield-dense-icon-padding);
-  }
-}
-
-.mdc-textfield--invalid {
-  .mdc-textfield__input {
-    border-color: $mdc-textfield-error-on-light;
-  }
-}
-
-.mdc-textfield--disabled {
-
-  .mdc-textfield__input {
-    border-bottom: 1px dotted $mdc-textfield-disabled-border-on-light;
-
-    @include mdc-theme-dark(".mdc-textfield", true) {
-      border-bottom: 1px dotted $mdc-textfield-disabled-border-on-dark;
-    }
-  }
-}
-
-.mdc-textfield--textarea {
-
-  // stylelint-disable plugin/selector-bem-pattern
-  .mdc-textfield__input {
-    padding: $mdc-text-field-padding-inset;
-    padding-top: $mdc-text-field-padding-inset * 2;
-    border: 1px solid transparent;
-
-    &:focus {
-      @include mdc-theme-prop(border-color, primary);
-    }
-
-    &:invalid:not(:focus) {
-      border-color: $mdc-textfield-error-on-light;
-    }
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      &:hover {
-        border-bottom-color: transparent;
-      }
-
-      &:focus {
-        @include mdc-theme-prop(border-color, secondary);
-      }
-
-      &:invalid:not(:focus) {
-        border-color: $mdc-textfield-error-on-dark;
-      }
-    }
-  }
-
-  &:not(.mdc-textfield--upgraded) {
-    .mdc-textfield__input {
-      padding-top: $mdc-text-field-padding-inset;
-    }
-  }
-}
-
-// stylelint-enable plugin/selector-bem-pattern
-
-.mdc-textfield--fullwidth {
-  // stylelint-disable plugin/selector-bem-pattern
-
-  &:not(.mdc-textfield--textarea) {
-
-    .mdc-textfield__input {
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      resize: none;
-      // Use !important here to override all other border treatments
-      border: none !important;
-    }
-  }
-
-  // stylelint-enable plugin/selector-bem-pattern
 }
 
 // Graceful degredation for css-only inputs
@@ -265,12 +146,5 @@
       }
       // stylelint-enable selector-max-specificity
     }
-  }
-}
-
-.mdc-textfield--box:not(.mdc-textfield--upgraded) {
-
-  .mdc-textfield__input {
-    padding-top: 0;
   }
 }
