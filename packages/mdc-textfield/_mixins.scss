@@ -49,10 +49,10 @@
       color: $mdc-textfield-error-on-dark;
     }
   }
+}
 
-  &.mdc-textfield--textarea {
-    @include mdc-theme-prop(border-color, primary);
-  }
+@mixin mdc-text-field-focused-textarea_() {
+  @include mdc-theme-prop(border-color, primary);
 }
 
 @mixin mdc-text-field-invalid_() {
@@ -75,10 +75,6 @@
     }
   }
 
-  &.mdc-textfield--textarea {
-    border-color: $mdc-textfield-error-on-light;
-  }
-
   &.mdc-textfield--disabled {
     .mdc-textfield__label {
       @include mdc-theme-prop(color, text-disabled-on-light);
@@ -88,6 +84,10 @@
       }
     }
   }
+}
+
+@mixin mdc-text-field-invalid-textarea_() {
+  border-color: $mdc-textfield-error-on-light;
 }
 
 @mixin mdc-text-field-disabled_() {
@@ -122,23 +122,23 @@
       @include mdc-theme-prop(color, text-disabled-on-dark);
     }
   }
+}
 
-  &.mdc-textfield--textarea {
-    border-style: solid;
-    border-color: $mdc-textfield-disabled-border-on-light;
+@mixin mdc-text-field-disabled-textarea_() {
+  border-style: solid;
+  border-color: $mdc-textfield-disabled-border-on-light;
+  background-color: $mdc-textarea-disabled-background-on-light;
+
+  .mdc-textfield__label {
     background-color: $mdc-textarea-disabled-background-on-light;
+  }
+
+  @include mdc-theme-dark(".mdc-textfield") {
+    border-color: $mdc-textfield-disabled-border-on-dark;
+    background-color: $mdc-textarea-disabled-background-on-dark;
 
     .mdc-textfield__label {
-      background-color: $mdc-textarea-disabled-background-on-light;
-    }
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      border-color: $mdc-textfield-disabled-border-on-dark;
       background-color: $mdc-textarea-disabled-background-on-dark;
-
-      .mdc-textfield__label {
-        background-color: $mdc-textarea-disabled-background-on-dark;
-      }
     }
   }
 }
