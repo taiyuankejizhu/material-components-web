@@ -89,16 +89,6 @@
   }
 }
 
-// Move label when textfield gets autofilled in Chrome
-.mdc-textfield__input {
-  // stylelint-disable plugin/selector-bem-pattern
-  &:-webkit-autofill + .mdc-textfield__label {
-    transform: translateY(-100%) scale(.75, .75);
-    cursor: auto;
-  }
-  // stylelint-enable plugin/selector-bem-pattern
-}
-
 .mdc-textfield--with-leading-icon {
   .mdc-textfield__input {
     @include mdc-rtl-reflexive-property(padding, $mdc-textfield-icon-padding, $mdc-textfield-icon-position);
