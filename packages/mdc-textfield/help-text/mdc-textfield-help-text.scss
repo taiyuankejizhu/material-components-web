@@ -46,11 +46,6 @@
     opacity: 1;
   }
 
-  .mdc-textfield--box + & {
-    margin-right: 16px;
-    margin-left: 16px;
-  }
-
   // stylelint-enable plugin/selector-bem-pattern
 }
 

@@ -36,3 +36,117 @@
     border-radius: max($radius - 2, 0);
   }
 }
+
+@mixin mdc-text-field-box_() {
+  @include mdc-ripple-surface;
+  @include mdc-ripple-color(black, .04);
+  @include mdc-ripple-radius;
+  @include mdc-text-field-box-corner-radius($mdc-text-field-border-radius);
+
+  display: inline-flex;
+  position: relative;
+  height: 56px;
+  background-color: $mdc-textfield-box-background;
+  overflow: hidden;
+
+  @include mdc-theme-dark(".mdc-textfield", true) {
+    background-color: $mdc-textfield-box-background-dark;
+  }
+
+  @include mdc-theme-dark(".mdc-textfield", true) {
+    @include mdc-ripple-color(white, .05);
+  }
+
+  & + .mdc-textfield-helptext {
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+  
+  .mdc-textfield__input {
+    align-self: flex-end;
+    box-sizing: border-box;
+    height: 100%;
+    padding-top: 20px;
+  }
+
+  &:not(.mdc-textfield--with-leading-icon):not(.mdc-textfield--with-trailing-icon) .mdc-textfield__input {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  &:not(.mdc-textfield--upgraded) .mdc-textfield__input {
+    padding-top: 0;
+  }
+
+  .mdc-textfield__label {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - #{$mdc-textfield-icon-padding});
+    color: $mdc-textfield-box-secondary-text;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+    overflow: hidden;
+    // Force the label into its own layer to prevent to prevent visible layer promotion adjustments
+    // when the ripple is activated behind it.
+    will-change: transform;
+
+    @include mdc-theme-dark(".mdc-textfield") {
+      @include mdc-theme-prop(color, text-secondary-on-dark);
+    }
+  }
+
+  &:not(.mdc-textfield--with-leading-icon) .mdc-textfield__label {
+    @include mdc-rtl-reflexive-position(left, 16px);
+  }
+
+  .mdc-textfield__label--float-above {
+    transform: translateY(-50%) scale(.75, .75);
+  }
+
+  .mdc-textfield__label--float-above.mdc-textfield__label--shake {
+    animation: invalid-shake-float-above-box 250ms 1;
+  }
+
+  &.mdc-textfield--dense {
+    .mdc-textfield__input {
+      padding: 12px 12px 0;
+    }
+
+    &:not(.mdc-textfield--with-leading-icon) .mdc-textfield__label {
+      @include mdc-rtl-reflexive-position(left, 12px);
+
+      bottom: 20px;
+    }
+
+    .mdc-textfield__label--float-above {
+      transform: translateY(calc(-75% - 2px)) scale(.923, .923);
+    }
+  }
+
+  &.mdc-textfield--disabled {
+    @include mdc-theme-prop(color, $mdc-textfield-light-placeholder);
+
+    border-bottom: none;
+    background-color: $mdc-textfield-box-disabled-background;
+
+    @include mdc-theme-dark(".mdc-textfield", true) {
+      @include mdc-theme-prop(background-color, $mdc-textfield-dark-background);
+      @include mdc-theme-prop(color, $mdc-textfield-dark-placeholder);
+
+      border-bottom: none;
+    }
+
+    .mdc-textfield__icon {
+      @include mdc-theme-prop(color, $mdc-textfield-disabled-icon-on-light);
+
+      @include mdc-theme-dark() {
+        @include mdc-theme-prop(color, $mdc-textfield-disabled-icon-on-dark);
+      }
+    }
+
+    .mdc-textfield__label {
+      bottom: 20px;
+    }
+  }
+}

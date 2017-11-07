@@ -54,60 +54,6 @@
   }
 }
 
-.mdc-textfield--box {
-
-  .mdc-textfield__label {
-    @include mdc-rtl-reflexive-position(left, 16px);
-
-    position: absolute;
-    bottom: 20px;
-    width: calc(100% - #{$mdc-textfield-icon-padding});
-    color: $mdc-textfield-box-secondary-text;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    pointer-events: none;
-    overflow: hidden;
-    // Force the label into its own layer to prevent to prevent visible layer promotion adjustments
-    // when the ripple is activated behind it.
-    will-change: transform;
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      @include mdc-theme-prop(color, text-secondary-on-dark);
-    }
-
-    &--float-above {
-      transform: translateY(-50%) scale(.75, .75);
-    }
-  }
-
-  .mdc-textfield__label--float-above {
-    &.mdc-textfield__label--shake {
-      animation: invalid-shake-float-above-box 250ms 1;
-    }
-  }
-
-  &.mdc-textfield--disabled {
-
-    .mdc-textfield__label {
-      bottom: 20px;
-    }
-  }
-
-  &.mdc-textfield--dense {
-
-    .mdc-textfield__label {
-      @include mdc-rtl-reflexive-position(left, 12px);
-
-      bottom: 20px;
-
-      &--float-above {
-        transform: translateY(calc(-75% - 2px)) scale(.923, .923);
-      }
-    }
-  }
-  // stylelint-enable plugin/selector-bem-pattern
-}
-
 .mdc-textfield--with-leading-icon {
 
   .mdc-textfield__label {

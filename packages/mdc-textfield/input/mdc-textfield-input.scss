@@ -99,28 +99,6 @@
   // stylelint-enable plugin/selector-bem-pattern
 }
 
-.mdc-textfield--box {
-
-  // NOTE: For some reason, stylelint complains that the patterns below don't follow BEM.
-  // However, it seems to emit the wrong selector for that pattern. Thus, we disable it above where
-  // we would normally disable it (on combined selectors) as a workaround.
-
-  // stylelint-disable plugin/selector-bem-pattern
-  .mdc-textfield__input {
-    align-self: flex-end;
-    box-sizing: border-box;
-    height: 100%;
-    padding: 20px 16px 0;
-  }
-
-  &.mdc-textfield--dense {
-    .mdc-textfield__input {
-      padding: 12px 12px 0;
-    }
-  }
-  // stylelint-enable plugin/selector-bem-pattern
-}
-
 .mdc-textfield--with-leading-icon {
   .mdc-textfield__input {
     @include mdc-rtl-reflexive-property(padding, $mdc-textfield-icon-padding, $mdc-textfield-icon-position);
@@ -265,12 +243,5 @@
       }
       // stylelint-enable selector-max-specificity
     }
-  }
-}
-
-.mdc-textfield--box:not(.mdc-textfield--upgraded) {
-
-  .mdc-textfield__input {
-    padding-top: 0;
   }
 }
