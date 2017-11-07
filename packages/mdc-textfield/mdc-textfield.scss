@@ -43,12 +43,16 @@
   // stylelint-enable plugin/selector-bem-pattern
 }
 
-.mdc-textfield--box {
-  @include mdc-text-field-box_();
+.mdc-textfield--focused {
+  @include mdc-text-field-focused_();
 }
 
 .mdc-textfield--invalid {
   @include mdc-text-field-invalid_();
+}
+
+.mdc-textfield--box {
+  @include mdc-text-field-box_();
 }
 
 .mdc-textfield--dense {
@@ -148,10 +152,6 @@
       background-color: $mdc-textarea-disabled-background-on-dark;
     }
   }
-}
-
-.mdc-textfield--textarea.mdc-textfield--focused {
-  @include mdc-theme-prop(border-color, primary);
 }
 
 // stylelint-enable plugin/selector-bem-pattern

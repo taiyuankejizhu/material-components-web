@@ -38,10 +38,6 @@
     margin-bottom: 8px;
   }
 
-  .mdc-textfield--focused + &:not(#{&}--validation-msg) {
-    opacity: 1;
-  }
-
   // stylelint-enable plugin/selector-bem-pattern
 }
 

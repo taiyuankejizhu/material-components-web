@@ -37,6 +37,24 @@
   }
 }
 
+@mixin mdc-text-field-focused_() {
+  + .mdc-textfield-helptext:not(.mdc-textfield-helptext--validation-msg) {
+    opacity: 1;
+  }
+
+ .mdc-textfield__input:required + .mdc-textfield__label::after {
+    color: $mdc-textfield-error-on-light;
+
+    @include mdc-theme-dark(".mdc-textfield", true) {
+      color: $mdc-textfield-error-on-dark;
+    }
+  }
+
+  &.mdc-textfield--textarea {
+    @include mdc-theme-prop(border-color, primary);
+  }
+}
+
 @mixin mdc-text-field-dense_() {
   margin-top: 12px;
   margin-bottom: 4px;
