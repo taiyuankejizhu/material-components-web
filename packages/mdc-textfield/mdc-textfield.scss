@@ -47,6 +47,10 @@
   @include mdc-text-field-box_();
 }
 
+.mdc-textfield--textarea {
+  @include mdc-text-field-textarea_();
+}
+
 .mdc-textfield--dense {
   @include mdc-text-field-dense_();
 }
@@ -102,21 +106,6 @@
 
   &:not(.mdc-textfield--textarea) {
     height: 48px;
-  }
-}
-
-.mdc-textfield--textarea {
-  @include mdc-text-field-textarea-corner-radius($mdc-text-field-border-radius);
-
-
-  display: flex;
-  height: initial;
-  transition: none;
-  border: 1px solid $mdc-textarea-border-on-light;
-  overflow: hidden;
-
-  @include mdc-theme-dark(".mdc-textfield") {
-    border-color: $mdc-textarea-border-on-dark;
   }
 }
 
