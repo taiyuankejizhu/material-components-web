@@ -51,6 +51,10 @@
   @include mdc-text-field-textarea_();
 }
 
+.mdc-textfield--fullwidth {
+  @include mdc-text-field-fullwidth_();
+}
+
 .mdc-textfield--dense {
   @include mdc-text-field-dense_();
 }
@@ -107,28 +111,6 @@
   &:not(.mdc-textfield--textarea) {
     height: 48px;
   }
-}
-
-.mdc-textfield--fullwidth {
-  width: 100%;
-
-  // stylelint-disable plugin/selector-bem-pattern
-
-  &:not(.mdc-textfield--textarea) {
-    display: block;
-    box-sizing: border-box;
-    height: 56px;
-    margin: 0;
-    border: none;
-    border-bottom: 1px solid $mdc-textfield-divider-on-light;
-    outline: none;
-  }
-
-  @include mdc-theme-dark {
-    border-bottom: 1px solid $mdc-textfield-divider-on-dark;
-  }
-
-  // stylelint-enable plugin/selector-bem-pattern
 }
 
 .mdc-textfield--box:not(.mdc-textfield--upgraded) {
