@@ -14,45 +14,22 @@
 // limitations under the License.
 //
 
-@import "../variables";
-@import "@material/theme/variables";
-@import "@material/theme/mixins";
+@import "./mixins";
 
 // postcss-bem-linter: define textfield
 
-// stylelint-disable plugin/selector-bem-pattern
-.mdc-textfield--invalid.mdc-textfield--textarea {
-  border-color: $mdc-textfield-error-on-light;
-}
-
-// stylelint-enable plugin/selector-bem-pattern
-
 .mdc-textfield--textarea {
-  @include mdc-text-field-textarea-corner-radius($mdc-text-field-border-radius);
-
-  display: flex;
-  height: initial;
-  transition: none;
-  border: 1px solid $mdc-textarea-border-on-light;
-  overflow: hidden;
-
-  @include mdc-theme-dark(".mdc-textfield") {
-    border-color: $mdc-textarea-border-on-dark;
-  }
-
-  // stylelint-disable plugin/selector-bem-pattern
-  &.mdc-textfield--disabled {
-    border-style: solid;
-    border-color: $mdc-textfield-disabled-border-on-light;
-    background-color: $mdc-textarea-disabled-background-on-light;
-
-    @include mdc-theme-dark(".mdc-textfield") {
-      border-color: $mdc-textfield-disabled-border-on-dark;
-      background-color: $mdc-textarea-disabled-background-on-dark;
-    }
-  }
+  @include mdc-text-field-textarea_();
 }
 
-.mdc-textfield--textarea.mdc-textfield--focused {
-  @include mdc-theme-prop(border-color, primary);
+.mdc-textfield--invalid.mdc-textfield--textarea {
+  @include mdc-text-field-invalid-textarea_();
+}
+
+.mdc-textfield--focused.mdc-textfield--textarea {
+  @include mdc-text-field-focused-textarea_();
+}
+
+.mdc-textfield--disabled.mdc-textfield--textarea {
+  @include mdc-text-field-disabled-textarea_();
 }

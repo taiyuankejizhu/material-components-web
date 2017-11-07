@@ -24,13 +24,17 @@
 @import "./help-text/mdc-textfield-help-text";
 @import "./label/mdc-textfield-label";
 @import "./input/mdc-textfield-input";
+@import "../textarea/mdc-textarea";
 
 // postcss-bem-linter: define textfield
 .mdc-textfield {
-  display: inline-block;
   position: relative;
   margin-bottom: 8px;
   will-change: opacity, transform, color;
+}
+
+.mdc-textfield:not(.mdc-textfield--textarea) {
+  display: inline-block;
 }
 
 // Move label when textfield gets autofilled in Chrome
@@ -47,10 +51,6 @@
   @include mdc-text-field-box_();
 }
 
-.mdc-textfield--textarea {
-  @include mdc-text-field-textarea_();
-}
-
 .mdc-textfield--fullwidth {
   @include mdc-text-field-fullwidth_();
 }
@@ -63,20 +63,8 @@
   @include mdc-text-field-invalid_();
 }
 
-.mdc-textfield--invalid.mdc-textfield--textarea {
-  @include mdc-text-field-invalid-textarea_();
-}
-
 .mdc-textfield--focused {
   @include mdc-text-field-focused_();
-}
-
-.mdc-textfield--focused.mdc-textfield--textarea {
-  @include mdc-text-field-focused-textarea_();
-}
-
-.mdc-textfield--disabled.mdc-textfield--textarea {
-  @include mdc-text-field-disabled-textarea_();
 }
 
 .mdc-textfield--disabled {

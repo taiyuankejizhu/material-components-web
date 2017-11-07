@@ -18,25 +18,6 @@
   border-radius: $radius $radius 0 0;
 }
 
-@mixin mdc-text-field-textarea-corner-radius($radius) {
-  border-radius: $radius;
-
-  .mdc-textfield__label {
-    // Bottom corners are square to prevent weird edge cases
-    // where text would be visible outside of the curve.
-    border-radius: $radius $radius 0 0;
-  }
-
-  .mdc-textfield__input {
-    // The input element is required to have 2 pixels shaved off
-    // of the radius of its parent. This prevents an ugly space of
-    // background between the two borders in each corner when the
-    // textarea is focused. This also means we need to guard against
-    // invalid output.
-    border-radius: max($radius - 2, 0);
-  }
-}
-
 @mixin mdc-text-field-focused_() {
   + .mdc-textfield-helptext:not(.mdc-textfield-helptext--validation-msg) {
     opacity: 1;
@@ -49,10 +30,6 @@
       color: $mdc-textfield-error-on-dark;
     }
   }
-}
-
-@mixin mdc-text-field-focused-textarea_() {
-  @include mdc-theme-prop(border-color, primary);
 }
 
 @mixin mdc-text-field-invalid_() {
@@ -86,10 +63,6 @@
   }
 }
 
-@mixin mdc-text-field-invalid-textarea_() {
-  border-color: $mdc-textfield-error-on-light;
-}
-
 @mixin mdc-text-field-disabled_() {
   pointer-events: none;
 
@@ -120,93 +93,6 @@
 
     &:not(.mdc-textfield--invalid) + .mdc-textfield-helptext {
       @include mdc-theme-prop(color, text-disabled-on-dark);
-    }
-  }
-}
-
-@mixin mdc-text-field-disabled-textarea_() {
-  border-style: solid;
-  border-color: $mdc-textfield-disabled-border-on-light;
-  background-color: $mdc-textarea-disabled-background-on-light;
-
-  .mdc-textfield__label {
-    background-color: $mdc-textarea-disabled-background-on-light;
-  }
-
-  @include mdc-theme-dark(".mdc-textfield") {
-    border-color: $mdc-textfield-disabled-border-on-dark;
-    background-color: $mdc-textarea-disabled-background-on-dark;
-
-    .mdc-textfield__label {
-      background-color: $mdc-textarea-disabled-background-on-dark;
-    }
-  }
-}
-
-@mixin mdc-text-field-textarea_() {
-  @include mdc-text-field-textarea-corner-radius($mdc-text-field-border-radius);
-
-  display: flex;
-  height: initial;
-  transition: none;
-  border: 1px solid $mdc-textarea-border-on-light;
-  overflow: hidden;
-
-  .mdc-textfield__input {
-    padding: $mdc-text-field-padding-inset;
-    padding-top: $mdc-text-field-padding-inset * 2;
-    border: 1px solid transparent;
-
-    &:focus {
-      @include mdc-theme-prop(border-color, primary);
-    }
-
-    &:invalid:not(:focus) {
-      border-color: $mdc-textfield-error-on-light;
-    }
-  }
-
-  .mdc-textfield__label {
-    @include mdc-rtl-reflexive-position(left, 1px);
-
-    top: $mdc-text-field-padding-inset + 2;
-    bottom: auto;
-    padding: 8px 16px;
-    background-color: $mdc-textarea-light-background;
-
-    &--float-above {
-      // Translate above the top of the input, and compensate for the amount of offset needed
-      // to position the label within the bounds of the inset padding.
-      // Note that the scale factor is an eyeball'd approximation of what's shown in the mocks.
-      transform: translateY(-50%) scale(.923, .923);
-    }
-  }
-
-  @include mdc-theme-dark(".mdc-textfield") {
-    border-color: $mdc-textarea-border-on-dark;
-
-    .mdc-textfield__input {
-      &:hover {
-        border-bottom-color: transparent;
-      }
-
-      &:focus {
-        @include mdc-theme-prop(border-color, secondary);
-      }
-
-      &:invalid:not(:focus) {
-        border-color: $mdc-textfield-error-on-dark;
-      }
-    }
-
-    .mdc-textfield__label {
-      background-color: $mdc-textarea-dark-background;
-    }
-  }
-
-  &:not(.mdc-textfield--upgraded) {
-    .mdc-textfield__input {
-      padding-top: $mdc-text-field-padding-inset;
     }
   }
 }
