@@ -39,8 +39,6 @@ class MDCTextfieldBottomLineFoundation extends MDCFoundation {
     return /** @type {!MDCTextfieldBottomLineAdapter} */ ({
       addClassToBottomLine: () => {},
       removeClassFromBottomLine: () => {},
-      registerTransitionEndHandler: () => {},
-      deregisterTransitionEndHandler: () => {},
       setBottomLineAttr: () => {},
     });
   }
@@ -50,17 +48,6 @@ class MDCTextfieldBottomLineFoundation extends MDCFoundation {
    */
   constructor(adapter = /** @type {!MDCTextfieldBottomLineAdapter} */ ({})) {
     super(Object.assign(MDCTextfieldBottomLineFoundation.defaultAdapter, adapter));
-
-    /** @private {function(!Event): undefined} */
-    this.transitionEndHandler_ = (evt) => this.transitionEnd_(evt);
-  }
-
-  init() {
-    this.adapter_.registerTransitionEndHandler(this.transitionEndHandler_);
-  }
-
-  destroy() {
-    this.adapter_.deregisterTransitionEndHandler(this.transitionEndHandler_);
   }
 
   /**
@@ -85,21 +72,6 @@ class MDCTextfieldBottomLineFoundation extends MDCFoundation {
       `transform-origin: ${normalizedX}px center`;
 
     this.adapter_.setBottomLineAttr('style', attributeString);
-  }
-
-  /**
-   * Fires when animation transition ends, performing actions that must wait
-   * for animations to finish.
-   * @param {!Event} evt
-   * @private
-   */
-  transitionEnd_(evt) {
-    // We need to wait for the bottom line to be entirely transparent
-    // before removing the class. If we do not, we see the line start to
-    // scale down before disappearing
-    if (evt.propertyName === 'opacity' && !this.isFocused_) {
-      this.adapter_.removeClassFromBottomLine(cssClasses.BOTTOM_LINE_ACTIVE);
-    }
   }
 }
 
