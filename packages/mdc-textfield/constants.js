@@ -35,8 +35,6 @@ const cssClasses = {
   INVALID: 'mdc-textfield--invalid',
   HELPTEXT_PERSISTENT: 'mdc-textfield-helptext--persistent',
   HELPTEXT_VALIDATION_MSG: 'mdc-textfield-helptext--validation-msg',
-  LABEL_FLOAT_ABOVE: 'mdc-textfield__label--float-above',
-  LABEL_SHAKE: 'mdc-textfield__label--shake',
   BOX: 'mdc-textfield--box',
   TEXT_FIELD_ICON: 'mdc-textfield__icon',
   TEXTAREA: 'mdc-textfield--textarea',

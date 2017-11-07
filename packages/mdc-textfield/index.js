@@ -21,7 +21,8 @@ import {MDCRipple} from '@material/ripple';
 import {cssClasses, strings} from './constants';
 import MDCTextfieldAdapter from './adapter';
 import MDCTextfieldFoundation from './foundation';
-import {MDCTextfieldInput, MDCTextfieldInputFoundation} from './input';
+import {MDCTextfieldInput} from './input';
+import {MDCTextfieldLabel} from './label';
 
 /**
  * @extends {MDCComponent<!MDCTextfieldFoundation>}
@@ -35,7 +36,7 @@ class MDCTextfield extends MDCComponent {
     super(...args);
     /** @private {?MDCTextfieldInput} */
     this.input_;
-    /** @private {?Element} */
+    /** @private {?MDCTextfieldLabel} */
     this.label_;
     /** @type {?Element} */
     this.helptextElement;
@@ -62,7 +63,8 @@ class MDCTextfield extends MDCComponent {
   initialize(rippleFactory = (el) => new MDCRipple(el)) {
     const inputElement = this.root_.querySelector(strings.INPUT_SELECTOR);
     this.input_ = new MDCTextfieldInput(inputElement);
-    this.label_ = this.root_.querySelector(strings.LABEL_SELECTOR);
+    const labelElement = this.root_.querySelector(strings.LABEL_SELECTOR)
+    this.label_ = new MDCTextfieldLabel(labelElement);
     this.helptextElement = null;
     this.ripple = null;
     if (inputElement.hasAttribute('aria-controls')) {
@@ -117,18 +119,6 @@ class MDCTextfield extends MDCComponent {
     return new MDCTextfieldFoundation(/** @type {!MDCTextfieldAdapter} */ (Object.assign({
       addClass: (className) => this.root_.classList.add(className),
       removeClass: (className) => this.root_.classList.remove(className),
-      addClassToLabel: (className) => {
-        const label = this.label_;
-        if (label) {
-          label.classList.add(className);
-        }
-      },
-      removeClassFromLabel: (className) => {
-        const label = this.label_;
-        if (label) {
-          label.classList.remove(className);
-        }
-      },
       eventTargetHasClass: (target, className) => target.classList.contains(className),
       registerTextFieldInteractionHandler: (evtType, handler) => this.root_.addEventListener(evtType, handler),
       deregisterTextFieldInteractionHandler: (evtType, handler) => this.root_.removeEventListener(evtType, handler),
@@ -136,6 +126,7 @@ class MDCTextfield extends MDCComponent {
       registerInputInteractionHandler: (evtType, handler) => this.input_.listen(evtType, handler),
       deregisterInputInteractionHandler: (evtType, handler) => this.input_.listen(evtType, handler),
       getInputFoundation: () => this.input_.foundation,
+      getLabelFoundation: () => this.label_.foundation,
     },
     this.getHelptextAdapterMethods_(),
     this.getBottomLineAdapterMethods_(),

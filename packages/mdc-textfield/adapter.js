@@ -16,6 +16,7 @@
  */
 
 import MDCTextfieldInputFoundation from './input/foundation';
+import MDCTextfieldLabelFoundation from './label/foundation';
 
 /**
  * Adapter for MDC Textfield.
@@ -39,21 +40,6 @@ class MDCTextfieldAdapter {
    * @param {string} className
    */
   removeClass(className) {}
-
-  /**
-   * Adds a class to the label Element. We recommend you add a conditional
-   * check here, and in removeClassFromLabel for whether or not the label is
-   * present so that the JS component could be used with text fields that don't
-   * require a label, such as the full-width text field.
-   * @param {string} className
-   */
-  addClassToLabel(className) {}
-
-  /**
-   * Removes a class from the label Element.
-   * @param {string} className
-   */
-  removeClassFromLabel(className) {}
 
   /**
    * Sets an attribute on the icon Element.
@@ -172,6 +158,11 @@ class MDCTextfieldAdapter {
    * @return {MDCTextfieldInputFoundation}
    */
   getInputFoundation() {}
+
+  /** 
+   * @return {MDCTextfieldLabelFoundation}
+   */
+  getLabelFoundation() {}
 }
 
 export default MDCTextfieldAdapter;
