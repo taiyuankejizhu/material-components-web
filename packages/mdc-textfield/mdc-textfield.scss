@@ -23,6 +23,7 @@
 @import "@material/typography/mixins";
 @import "@material/typography/variables";
 @import "./bottom-line/mdc-textfield-bottom-line";
+@import "./help-text/mdc-textfield-help-text";
 
 @include mdc-text-field-invalid-label-shake_keyframes_(standard, 100%);
 @include mdc-text-field-invalid-label-shake_keyframes_(box, 50%);
@@ -614,65 +615,6 @@
 
   .mdc-textfield__input {
     padding-top: 0;
-  }
-}
-
-// postcss-bem-linter: end
-
-// postcss-bem-linter: define textfield-helptext
-
-.mdc-textfield-helptext {
-  @include mdc-theme-prop(color, text-hint-on-light);
-
-  margin: 0;
-  transition: mdc-textfield-transition(opacity);
-  opacity: 0;
-  font-size: .75rem;
-  will-change: opacity;
-
-  @include mdc-theme-dark {
-    @include mdc-theme-prop(color, text-hint-on-dark);
-  }
-
-  // stylelint-disable plugin/selector-bem-pattern
-  .mdc-textfield + & {
-    margin-bottom: 8px;
-  }
-
-  .mdc-textfield--dense + & {
-    margin-bottom: 4px;
-  }
-
-  .mdc-textfield--focused + &:not(#{&}--validation-msg) {
-    opacity: 1;
-  }
-
-  .mdc-textfield--box + & {
-    margin-right: 16px;
-    margin-left: 16px;
-  }
-
-  // stylelint-enable plugin/selector-bem-pattern
-}
-
-.mdc-textfield-helptext--persistent {
-  transition: none;
-  opacity: 1;
-  will-change: initial;
-}
-
-// postcss-bem-linter: end
-
-.mdc-textfield--invalid {
-  + .mdc-textfield-helptext--validation-msg {
-    opacity: 1;
-    color: $mdc-textfield-error-on-light;
-  }
-
-  @include mdc-theme-dark(".mdc-textfield", true) {
-    + .mdc-textfield-helptext--validation-msg {
-      color: $mdc-textfield-error-on-dark;
-    }
   }
 }
 
