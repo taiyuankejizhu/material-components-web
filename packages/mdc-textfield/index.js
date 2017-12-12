@@ -76,7 +76,7 @@ class MDCTextField extends MDCComponent {
     if (labelElement) {
       this.label_ = new MDCTextFieldLabel(labelElement);
     }
-    this.ripple = null;
+    this.ripple_ = null;
     if (this.root_.classList.contains(cssClasses.BOX)) {
       const MATCHES = getMatchesProperty(HTMLElement.prototype);
       const adapter = Object.assign(MDCRipple.createAdapter(this), {
@@ -85,7 +85,7 @@ class MDCTextField extends MDCComponent {
         deregisterInteractionHandler: (type, handler) => this.input_.removeEventListener(type, handler),
       });
       const foundation = new MDCRippleFoundation(adapter);
-      this.ripple = rippleFactory(this.root_, foundation);
+      this.ripple_ = rippleFactory(this.root_, foundation);
     };
     if (!this.root_.classList.contains(cssClasses.TEXTAREA)) {
       const bottomLineElement = this.root_.querySelector(strings.BOTTOM_LINE_SELECTOR);
@@ -106,8 +106,8 @@ class MDCTextField extends MDCComponent {
   }
 
   destroy() {
-    if (this.ripple) {
-      this.ripple.destroy();
+    if (this.ripple_) {
+      this.ripple_.destroy();
     }
     if (this.bottomLine_) {
       this.bottomLine_.destroy();
