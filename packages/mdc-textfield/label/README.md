@@ -27,7 +27,7 @@ Text field labels display the type of input a field requires. Every text field s
 <label class="mdc-text-field__label" for="my-text-field-id">Hint text</label>
 ```
 
-### Usage with `mdc-text-field`
+### Usage within `mdc-text-field`
 
 ```html
 <div class="mdc-text-field">
@@ -52,7 +52,7 @@ It's also possible to wrap `mdc-text-field__input` within a `<label>` to avoid d
 > _NOTE_: Only place an `mdc-text-field__label` inside of a text field _if you plan on using
 > Javascript_. Otherwise, the label must go outside of the text-field, as shown below.
 
-### Single Line, CSS Only
+#### Single Line, CSS Only
 
 ```html
 <label for="text-field-no-js">TextField with no JS: </label>
@@ -67,8 +67,8 @@ It's also possible to wrap `mdc-text-field__input` within a `<label>` to avoid d
 CSS Class | Description
 --- | ---
 `mdc-text-field__label` | Mandatory
-`mdc-text-field__label--float-above` | Indicates the label is floating above the text field. Works in concert with styling on `mdc-text-field` element.
-`mdc-text-field__label--shake` | Shakes the label. Works in concert with validity styling on `mdc-text-field` element.
+`mdc-text-field__label--float-above` | Indicates the label is floating above the text field
+`mdc-text-field__label--shake` | Shakes the label
 
 ### `MDCTextFieldLabel`
 

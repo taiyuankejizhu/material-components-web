@@ -71,7 +71,7 @@ CSS Class | Description
 --- | ---
 `mdc-text-field-helper-text` | Mandatory
 `mdc-text-field-helper-text--persistent` | Makes the helper text permanently visible
-`mdc-text-field-helper-text--validation-msg` | Indicates the helper text is a validation message. Works in concert with validity styling on `mdc-text-field` element.
+`mdc-text-field-helper-text--validation-msg` | Indicates the helper text is a validation message
 
 ### `MDCTextFieldHelperText`
 
@@ -94,6 +94,6 @@ Method Signature | Description
 
 Method Signature | Description
 --- | ---
-`setContent() => void` | Sets the content of the helper text
+`setContent(content: string) => void` | Sets the content of the helper text
 `showToScreenReader() => void` | Makes the helper text visible to the screen reader
-`setValidity() => void` | Sets the validity of the helper text based on the input validity
+`setValidity(inputIsValid: boolean) => void` | Sets the validity of the helper text based on the input validity

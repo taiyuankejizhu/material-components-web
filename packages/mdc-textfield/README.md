@@ -44,6 +44,7 @@ npm install --save @material/textfield
   <label class="mdc-text-field__label" for="my-text-field">Hint text</label>
   <div class="mdc-text-field__bottom-line"></div>
 </div>
+```
 
 #### HTML5 Validation
 
@@ -77,7 +78,7 @@ Un-styled Content (**FOUC**).
 </div>
 ```
 > _NOTE_: Only place an `mdc-text-field__label` inside of `mdc-text-field` _if you plan on using
-> Javascript_. Otherwise, the label must go outside of `mdc-text-field`, as shown below.
+> JavaScript_. Otherwise, the label must go outside of `mdc-text-field`, as shown below.
 
 #### CSS Only
 
@@ -91,8 +92,7 @@ Un-styled Content (**FOUC**).
 
 ##### Box Variant
 
-> _NOTE_: Do not use `mdc-text-field__bottom-line` inside of `mdc-text-field` _if you plan on using
-> `mdc-text-field--box`_. Bottom line should not be included as part of the DOM structure of a box text field.
+> _NOTE_: Do not use `mdc-text-field__bottom-line` inside of `mdc-text-field` _if you plan on using `mdc-text-field--box`, and do not plan on using JavaScript_. Bottom line should not be included as part of the DOM structure of a box text field.
 
 ```html
 <label for="css-only-text-field-box">Your name:</label>
