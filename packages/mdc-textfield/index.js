@@ -67,16 +67,25 @@ class MDCTextField extends MDCComponent {
    * creates a new MDCRipple.
    * @param {(function(!Element): !MDCTextFieldBottomLine)=} bottomLineFactory A function which
    * creates a new MDCTextFieldBottomLine.
+   * @param {(function(!Element): !MDCTextFieldHelperText)=} helperTextFactory A function which
+   * creates a new MDCTextFieldHelperText.
+   * @param {(function(!Element): !MDCTextFieldIcon)=} iconFactory A function which
+   * creates a new MDCTextFieldIcon.
+   * @param {(function(!Element): !MDCTextFieldLabel)=} labelFactory A function which
+   * creates a new MDCTextFieldLabel.
    */
   initialize(
     rippleFactory = (el, foundation) => new MDCRipple(el, foundation),
-    bottomLineFactory = (el) => new MDCTextFieldBottomLine(el)) {
+    bottomLineFactory = (el) => new MDCTextFieldBottomLine(el),
+    helperTextFactory = (el) => new MDCTextFieldHelperText(el),
+    iconFactory = (el) => new MDCTextFieldIcon(el),
+    labelFactory = (el) => new MDCTextFieldLabel(el)) {
     this.input_ = this.root_.querySelector(strings.INPUT_SELECTOR);
     const labelElement = this.root_.querySelector(strings.LABEL_SELECTOR);
     if (labelElement) {
-      this.label_ = new MDCTextFieldLabel(labelElement);
+      this.label_ = labelFactory(labelElement);
     }
-    this.ripple_ = null;
+    this.ripple = null;
     if (this.root_.classList.contains(cssClasses.BOX)) {
       const MATCHES = getMatchesProperty(HTMLElement.prototype);
       const adapter = Object.assign(MDCRipple.createAdapter(this), {
@@ -85,29 +94,27 @@ class MDCTextField extends MDCComponent {
         deregisterInteractionHandler: (type, handler) => this.input_.removeEventListener(type, handler),
       });
       const foundation = new MDCRippleFoundation(adapter);
-      this.ripple_ = rippleFactory(this.root_, foundation);
+      this.ripple = rippleFactory(this.root_, foundation);
     };
-    if (!this.root_.classList.contains(cssClasses.TEXTAREA)) {
-      const bottomLineElement = this.root_.querySelector(strings.BOTTOM_LINE_SELECTOR);
-      if (bottomLineElement) {
-        this.bottomLine_ = bottomLineFactory(bottomLineElement);
-      }
-    };
+    const bottomLineElement = this.root_.querySelector(strings.BOTTOM_LINE_SELECTOR);
+    if (bottomLineElement) {
+      this.bottomLine_ = bottomLineFactory(bottomLineElement);
+    }
     if (this.input_.hasAttribute(strings.ARIA_CONTROLS)) {
       const helperTextElement = document.getElementById(this.input_.getAttribute(strings.ARIA_CONTROLS));
       if (helperTextElement) {
-        this.helperText_ = new MDCTextFieldHelperText(helperTextElement);
+        this.helperText_ = helperTextFactory(helperTextElement);
       }
     }
     const iconElement = this.root_.querySelector(strings.ICON_SELECTOR);
     if (iconElement) {
-      this.icon_ = new MDCTextFieldIcon(iconElement);
+      this.icon_ = iconFactory(iconElement);
     }
   }
 
   destroy() {
-    if (this.ripple_) {
-      this.ripple_.destroy();
+    if (this.ripple) {
+      this.ripple.destroy();
     }
     if (this.bottomLine_) {
       this.bottomLine_.destroy();
@@ -117,6 +124,9 @@ class MDCTextField extends MDCComponent {
     }
     if (this.label_) {
       this.label_.destroy();
+    }
+    if (this.icon_) {
+      this.icon_.destroy();
     }
     super.destroy();
   }

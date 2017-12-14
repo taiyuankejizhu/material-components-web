@@ -92,30 +92,18 @@ Un-styled Content (**FOUC**).
 
 ##### Box Variant
 
-> _NOTE_: Do not use `mdc-text-field__bottom-line` inside of `mdc-text-field` _if you plan on using `mdc-text-field--box`, and do not plan on using JavaScript_. Bottom line should not be included as part of the DOM structure of a box text field.
+### Using Helper Text
 
-```html
-<label for="css-only-text-field-box">Your name:</label>
-<div class="mdc-text-field mdc-text-field--box">
-  <input type="text" class="mdc-text-field__input" id="css-only-text-field-box" placeholder="Name">
-</div>
-```
+The helper text provides supplemental information and/or validation messages to users. It appears on input field focus
+and disappears on input field blur by default, or it can be persistent. 
+See [here](helper-text/) for more information on using helper text.
 
-#### Full Width
+### Leading and Trailing Icons
 
-```html
-<div class="mdc-text-field mdc-text-field--fullwidth">
-  <input class="mdc-text-field__input"
-         type="text"
-         placeholder="Full-Width Text Field"
-         aria-label="Full-Width Text Field">
-</div>
-```
+Leading and trailing icons can be added to MDC Text Fields as visual indicators as well as interaction targets.
+See [here](icon/) for more information on using icons.
 
-> _NOTE_: Do not use `mdc-text-field__label` within `mdc-text-field--fullwidth`. Labels should not be
-included as part of the DOM structure of a full width text field.
-
-#### Textarea
+### Textarea
 
 ```html
 <div class="mdc-text-field mdc-text-field--textarea">
@@ -198,36 +186,68 @@ Boolean setter. Proxies to the foundation's `setValid` method when set.
 
 String setter. Proxies to the foundation's `setHelperTextContent` method when set.
 
-### `MDCTextFieldAdapter`
+##### MDCTextField.ripple
 
-Method Signature | Description
---- | ---
-`addClass(className: string) => void` | Adds a class to the root element
-`removeClass(className: string) => void` | Removes a class from the root element
-`registerTextFieldInteractionHandler(evtType: string, handler: EventListener)` => void | Registers an event handler on the root element for a given event
-`deregisterTextFieldInteractionHandler(evtType: string, handler: EventListener)` => void | Deregisters an event handler on the root element for a given event
-`registerInputInteractionHandler(evtType: string, handler: EventListener)` => void | Registers an event listener on the native input element for a given event
-`deregisterInputInteractionHandler(evtType: string, handler: EventListener)` => void | Deregisters an event listener on the native input element for a given event
-`registerBottomLineEventHandler(evtType: string, handler: EventListener)` => void | Registers an event listener on the bottom line element for a given event
-`deregisterBottomLineEventHandler(evtType: string, handler: EventListener)` => void | Deregisters an event listener on the bottom line element for a given event
-`getNativeInput() => {value: string, disabled: boolean, badInput: boolean, checkValidity: () => boolean}?` | Returns an object representing the native text input element, with a similar API shape.
+`MDCRipple` instance. Set to the `MDCRipple` instance for the root element that `MDCTextField`
+initializes when given an `mdc-text-field--box` root element. Otherwise, the field is set to `null`.
 
-#### `MDCTextFieldAdapter.getNativeInput()`
+### Using the foundation class
 
-Returns an object representing the native text input element, with a similar API shape. The object returned should include the `value`, `disabled` and `badInput` properties, as well as the `checkValidity()` function. We _never_ alter the value within our code, however we _do_ update the disabled property, so if you choose to duck-type the return value for this method in your implementation it's important to keep this in mind. Also note that this method can return null, which the foundation will handle gracefully.
+Because MDC Text Field is a feature-rich and relatively complex component, its adapter is a bit more
+complicated.
 
-### `MDCTextFieldFoundation`
+| Method Signature | Description |
+| --- | --- |
+| addClass(className: string) => void | Adds a class to the root element |
+| removeClass(className: string) => void | Removes a class from the root element |
+| registerTextFieldInteractionHandler(evtType: string, handler: EventListener) => void | Registers an event handler on the root element for a given event |
+| deregisterTextFieldInteractionHandler(evtType: string, handler: EventListener) => void | Deregisters an event handler on the root element for a given event |
+| registerInputInteractionHandler(evtType: string, handler: EventListener) => void | Registers an event listener on the native input element for a given event |
+| deregisterInputInteractionHandler(evtType: string, handler: EventListener) => void | Deregisters an event listener on the native input element for a given event |
+| registerBottomLineEventHandler(evtType: string, handler: EventListener) => void | Registers an event listener on the bottom line element for a given event |
+| deregisterBottomLineEventHandler(evtType: string, handler: EventListener) => void | Deregisters an event listener on the bottom line element for a given event |
+| getNativeInput() => {value: string, disabled: boolean, badInput: boolean, checkValidity: () => boolean}? | Returns an object representing the native text input element, with a similar API shape. The object returned should include the `value`, `disabled` and `badInput` properties, as well as the `checkValidity()` function. We _never_ alter the value within our code, however we _do_ update the disabled property, so if you choose to duck-type the return value for this method in your implementation it's important to keep this in mind. Also note that this method can return null, which the foundation will handle gracefully. |
 
-Method Signature | Description
---- | ---
-`isDisabled() => boolean` | Returns whether or not the input is disabled
-`setDisabled(disabled: boolean) => void` | Updates the input's disabled state
-`setValid(isValid: boolean) => void` | Sets the validity state of the Text Field. Triggers custom validity checking
-`setHelperTextContent(content: string) => void` | 
-`handleTextFieldInteraction(evt: Event) => void` | Handles click and keydown events originating from inside the Text Field component
-`activateFocus() => void` | Activates the focus state of the Text Field. Normally called in response to the input focus event.
-`deactivateFocus() => void` | Deactivates the focus state of the Text Field. Normally called in response to the input blur event.
-`handleBottomLineAnimationEnd(evt: Event) => void` | Handles the end of the bottom line animation, performing actions that must wait for animations to finish. Expects a transition-end event.
-`setHelperTextContent(content: string) => void` | Sets the content of the helper text
+MDC Text Field has multiple optional sub-elements: bottom line and helper text. The foundations of these sub-elements must be passed in as constructor arguments for the `MDCTextField` foundation. Since the `MDCTextField` component takes care of creating its foundation, we need to pass sub-element foundations through the `MDCTextField` component. This is typically done in the component's implementation of `getDefaultFoundation()`.
 
-`MDCTextFieldFoundation` supports multiple optional sub-elements: bottom line and helper text. The foundations of these sub-elements must be passed in as constructor arguments to `MDCTextFieldFoundation`. 
+#### The full foundation API
+
+##### MDCTextFieldFoundation.isDisabled() => boolean
+
+Returns a boolean specifying whether or not the input is disabled.
+
+##### MDCTextFieldFoundation.setDisabled(disabled: boolean)
+
+Updates the input's disabled state.
+
+##### MDCTextFieldFoundation.setValid(isValid: boolean)
+
+Sets the validity state of the Text Field. Triggers custom validity checking.
+
+##### MDCTextFieldFoundation.handleTextFieldInteraction(evt: Event)
+
+Handles click and keydown events originating from inside the Text Field component.
+
+##### MDCTextFieldFoundation.activateFocus()
+
+Activates the focus state of the Text Field. Normally called in response to the input focus event.
+
+##### MDCTextFieldFoundation.deactivateFocus()
+
+Deactivates the focus state of the Text Field. Normally called in response to the input blur event.
+
+##### MDCTextFieldFoundation.handleBottomLineAnimationEnd(evt: Event)
+
+Handles the end of the bottom line animation, performing actions that must wait for animations to
+finish. Expects a transition-end event.
+
+##### MDCTextFieldFoundation.setHelperTextContent(content)
+
+Sets the content of the helper text, if it exists.
+
+### Theming
+
+MDC Text Field components use the configured theme's primary color for its underline and label text
+when the input is focused.
+
+MDC Text Field components support dark themes.
